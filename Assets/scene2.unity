@@ -199,7 +199,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ec340f3317cb597409b36d3264736e0b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b8298d542937af04294139e961757bca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1220a53b076bc342972f576e0fb4679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 1950811684238434, guid: 7b466523a8339544a97816997d1b2ca6,
+  towerPrefab: {fileID: 1133731293355228, guid: 5d1b8501038041f4e8009780c3538627,
     type: 2}
 --- !u!1 &219323299
 GameObject:
@@ -396,7 +396,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ec340f3317cb597409b36d3264736e0b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df3583ba275e54443a217e9f09bb398c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1220a53b076bc342972f576e0fb4679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 1950811684238434, guid: 7b466523a8339544a97816997d1b2ca6,
+  towerPrefab: {fileID: 1728123546728736, guid: e0e58acfe202d4e4bbcd08574f8e3289,
     type: 2}
 --- !u!1 &594241011
 GameObject:
