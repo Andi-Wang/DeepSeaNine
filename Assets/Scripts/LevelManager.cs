@@ -12,7 +12,10 @@ public class LevelManager : Singleton<LevelManager> {
     private CameraMovement cameraMovement;
 
     [SerializeField]
-    private Transform map; 
+    private Transform map;
+
+    [SerializeField]
+    private MiniMapLimits miniMap;
 
     public Dictionary<Point, TileScript> Tiles { get; set; }
     //public GameObject TowerPanel { get; private set; }
@@ -54,8 +57,7 @@ public class LevelManager : Singleton<LevelManager> {
 
         maxTile = Tiles[new Point(mapX - 1, mapY - 1)].transform.position;
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
-
-        //added so menu only displays when clicke
+        miniMap.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
         //TowerPanel = GameObject.Find("TowerPanel");
         //TowerPanel.SetActive(false);
         Canvas = GameObject.Find("Canvas1");
