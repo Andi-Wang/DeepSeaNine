@@ -6,12 +6,17 @@ namespace UnityStandardAssets._2D {
     [RequireComponent(typeof(Player))]
     public class PlayerInput : MonoBehaviour {
         public class Input {
-            public char lastDirection;
+            public Vector3 lastDirection;
 
             public bool up;
             public bool down;
             public bool left;
             public bool right;
+
+            public bool upHold;
+            public bool downHold;
+            public bool leftHold;
+            public bool rightHold;
 
             public bool interactDown;
             public bool interactHold;
@@ -21,9 +26,13 @@ namespace UnityStandardAssets._2D {
             public bool sellHold;
 
             public void resetButtonDown() {
-                interactHold = false;
-                buildUpgradeHold = false;
-                sellHold = false;
+                up = false;
+                down = false;
+                left = false;
+                right = false;
+
+                interactDown = false;
+                fireDown = false;
             }
         }
 
@@ -39,35 +48,39 @@ namespace UnityStandardAssets._2D {
 
             // Read button down inputs in Update so button presses aren't missed.
             if (!input.interactDown) {
-                input.interactDown = CrossPlatformInputManager.GetButtonDown("Interact");
+                input.interactDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Interact");
             }
             if (!input.fireDown) {
-                input.fireDown = CrossPlatformInputManager.GetButtonDown("Fire");
+                input.fireDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Fire");
             }
-            if(CrossPlatformInputManager.GetButtonDown("Up")) {
-                input.lastDirection = 'N';
+            if(CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Up")) {
+                input.lastDirection = Vector3.up;
+                input.up = true;
             }
-            if (CrossPlatformInputManager.GetButtonDown("Down")) {
-                input.lastDirection = 'S';
+            if (CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Down")) {
+                input.lastDirection = Vector3.down;
+                input.down = true;
             }
-            if (CrossPlatformInputManager.GetButtonDown("Left")) {
-                input.lastDirection = 'W';
+            if (CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Left")) {
+                input.lastDirection = Vector3.left;
+                input.left = true;
             }
-            if (CrossPlatformInputManager.GetButtonDown("Right")) {
-                input.lastDirection = 'E';
+            if (CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Right")) {
+                input.lastDirection = Vector3.right;
+                input.right = true;
             }
         }
 
 
         private void FixedUpdate() {
-            input.up = CrossPlatformInputManager.GetButton("Up");
-            input.down = CrossPlatformInputManager.GetButton("Down");
-            input.left = CrossPlatformInputManager.GetButton("Left");
-            input.right = CrossPlatformInputManager.GetButton("Right");
+            input.upHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Up");
+            input.downHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Down");
+            input.leftHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Left");
+            input.rightHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Right");
 
-            input.interactHold = CrossPlatformInputManager.GetButton("Interact");
-            input.buildUpgradeHold = CrossPlatformInputManager.GetButton("Build/Upgrade");
-            input.sellHold = CrossPlatformInputManager.GetButton("Sell");
+            input.interactHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Interact");
+            input.buildUpgradeHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Build/Upgrade");
+            input.sellHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Sell");
 
             player.Move(input);
             input.resetButtonDown();

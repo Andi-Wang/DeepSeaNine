@@ -6,14 +6,17 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets._2D {
     public class Player : MonoBehaviour {
-        Point location;
-        char facing;
-        int playerNumber;
-        public LevelManager level;
+        private Point startLocation;
+        private Point location;
+        private Vector3 facing;
+        private LevelManager level;
+        public int playerNumber { get; private set; }
+
+        private float moveCounter = 0;
 
         // Use this for initialization
         void Start() {
-
+            moveSprite(location);
         }
 
         // Update is called once per frame
@@ -22,10 +25,11 @@ namespace UnityStandardAssets._2D {
         }
 
         void FixedUpdate() {
-
+            
         }
 
         public void Move(PlayerInput.Input input) {
+            moveCounter += Time.deltaTime;
             facing = input.lastDirection;
 
             if(input.buildUpgradeHold) {
@@ -47,8 +51,7 @@ namespace UnityStandardAssets._2D {
                 }
             }
             else if(input.interactDown) {
-                Point next = getNextPoint(facing);
-                //Do something if facing a point that can be interacted with
+                //Interact with something if on an object that can be interacted with
                 if(true) {
 
                 }
@@ -61,48 +64,64 @@ namespace UnityStandardAssets._2D {
             }
             //Move the player if the next tile isn't water
             else {
-                if(input.up && facing == 'N') {
-                    moveInDirection(facing);
+                if(moveCounter > 0.1f) {
+                    if (input.up || (input.upHold && facing == Vector3.up)) {
+                        moveInDirection(facing);
+                        moveCounter = 0;
+                    }
+                    else if (input.down || (input.downHold && facing == Vector3.down)) {
+                        moveInDirection(facing);
+                        moveCounter = 0;
+                    }
+                    else if (input.left || (input.leftHold && facing == Vector3.left)) {
+                        moveInDirection(facing);
+                        moveCounter = 0;
+                    }
+                    else if (input.right || (input.rightHold && facing == Vector3.right)) {
+                        moveInDirection(facing);
+                        moveCounter = 0;
+                    }
                 }
-                else if(input.down && facing == 'S') {
-                    moveInDirection(facing);
-                }
-                else if(input.left && facing == 'W') {
-                    moveInDirection(facing);
-                }
-                else if(input.right && facing == 'E') {
-                    moveInDirection(facing);
-                }
-
             }
 
 
         }
 
-        private Point getNextPoint(char facing) {
-            Point next = new Point(-1, -1);
-
-            if(facing == 'N') {
-                next = new Point(location.X, location.Y + 1);
-            }
-            else if(facing == 'S') {
-                next = new Point(location.X, location.Y - 1);
-            }
-            else if(facing == 'W') {
-                next = new Point(location.X - 1, location.Y);
-            }
-            else if(facing == 'E') {
-                next = new Point(location.X + 1, location.Y);
-            }
-
+        private Point getNextPoint(Vector3 facing) {
+            Point next = new Point(location.X + (int)facing.x, location.Y + (int)facing.y);
             return next;
         }
 
-        private void moveInDirection(char facing) {
-            Point next = getNextPoint(facing);
-            if(next.X != -1 && next.Y != -1 && level.Tiles[next].Type != "water") {
-                location = next;
+        private void moveInDirection(Vector3 facing) {
+            if(facing != Vector3.zero) {
+                Point next;
+                if (facing == Vector3.up || facing == Vector3.down) {
+                    next = getNextPoint(-facing);
+                }
+                else {
+                    next = getNextPoint(facing);
+                }                
+                
+                if (level.Tiles[next].Type != "water") {
+                    location = next;
+                    moveSprite(location);
+                }
             }
+        }
+
+        private void moveSprite(Point point) {
+            transform.position = new Vector3(level.worldStart.x + level.TileSize * point.X, level.worldStart.y - level.TileSize * point.Y, 0);
+            float angle = Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+
+        public void createPlayerAt(int number, int x, int y) {
+            playerNumber = number;
+            level = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+            startLocation = new Point(x, y);
+            location = startLocation;
+            facing = Vector3.right;
+            moveSprite(location);
         }
     }
 }

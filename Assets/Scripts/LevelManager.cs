@@ -24,6 +24,11 @@ public class LevelManager : Singleton<LevelManager> {
 	public float TileSize{
 		get { return tilePrefabs[0].GetComponent<SpriteRenderer> ().sprite.bounds.size.x; }
 	}
+
+    public Vector3 worldStart { get; private set; }
+
+
+
 	// Use this for initialization
 	void Start() {
 		CreateLevel();
@@ -45,9 +50,9 @@ public class LevelManager : Singleton<LevelManager> {
 
         Vector3 maxTile = Vector3.zero;
 
-		Vector3 worldStart = Camera.main.ScreenToWorldPoint (new Vector3 (0, Screen.height));
+        worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
 
-		for (int y = 0; y < mapY; y++) {
+        for (int y = 0; y < mapY; y++) {
             char[] newTiles = mapData[y].ToCharArray();
 			for (int x = 0; x < mapX; x++) {
 				
