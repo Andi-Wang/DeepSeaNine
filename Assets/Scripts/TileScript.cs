@@ -68,6 +68,17 @@ public class TileScript : MonoBehaviour {
 
     }
 
+    public void TowerMenu(Vector3 loc) {
+        if (this.Type == "wall") {
+            GameObject towerMenu = LevelManager.Instance.TowerMenu;
+            Rect newRect = new Rect(loc.x, loc.y, 210, 140);
+            towerMenu.GetComponent<RectTransform>().transform.position = loc;
+            towerMenu.SetActive(true);
+            //LevelManager.Instance.TowerPanel.SetActive(true);
+            GameManager.Instance.CurrentTile = this;
+        }
+    }
+
     /*private void OnMouseOver() {
 
         //display tower menu when user clicks wall tile.

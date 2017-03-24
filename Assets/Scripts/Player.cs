@@ -21,7 +21,14 @@ namespace UnityStandardAssets._2D {
 
         // Update is called once per frame
         void Update() {
+            GetInput();
+        }
 
+        private void GetInput() {
+            if (Input.GetKeyDown(KeyCode.Tab)) {
+                TileScript currentTile = LevelManager.Instance.Tiles[location];
+                currentTile.TowerMenu(transform.position);
+            }
         }
 
         void FixedUpdate() {
