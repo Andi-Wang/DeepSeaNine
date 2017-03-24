@@ -21,14 +21,7 @@ namespace UnityStandardAssets._2D {
 
         // Update is called once per frame
         void Update() {
-            GetInput();
-        }
 
-        private void GetInput() {
-            if (Input.GetKeyDown(KeyCode.Tab)) {
-                TileScript currentTile = LevelManager.Instance.Tiles[location];
-                currentTile.TowerMenu(transform.position);
-            }
         }
 
         void FixedUpdate() {
@@ -43,7 +36,8 @@ namespace UnityStandardAssets._2D {
                 if(level.Tiles[location].Type == "wall") {
                     //Build tower if there's no tower at location
                     if(true) {
-
+                        TileScript currentTile = LevelManager.Instance.Tiles[location];
+                        currentTile.TowerMenu(transform.position);
                     }
                     //Upgrade tower if there is a tower at location
                     else {

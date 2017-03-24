@@ -7,6 +7,7 @@ public class TileScript : MonoBehaviour {
 
     public Point GridPosition { get; private set; }
     public string Type { get; private set; }
+    public bool IsTower { get; private set; }
 
     private Color startColor;
     // Use this for initialization
@@ -24,6 +25,7 @@ public class TileScript : MonoBehaviour {
         this.GridPosition = gridPos;
         transform.position = worldPos;
         this.Type = "";
+        this.IsTower = false;
 
         if (type == 0){
 
@@ -71,7 +73,6 @@ public class TileScript : MonoBehaviour {
     public void TowerMenu(Vector3 loc) {
         if (this.Type == "wall") {
             GameObject towerMenu = LevelManager.Instance.TowerMenu;
-            Rect newRect = new Rect(loc.x, loc.y, 210, 140);
             towerMenu.GetComponent<RectTransform>().transform.position = loc;
             towerMenu.SetActive(true);
             //LevelManager.Instance.TowerPanel.SetActive(true);
@@ -111,5 +112,6 @@ public class TileScript : MonoBehaviour {
         GameObject tower = (GameObject)Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
         tower.transform.SetParent(transform);
         GameManager.Instance.BuyTower();
+        this.IsTower = true;
     }
 }
