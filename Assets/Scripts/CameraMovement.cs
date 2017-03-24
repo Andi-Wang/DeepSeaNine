@@ -12,10 +12,10 @@ public class CameraMovement : MonoBehaviour {
     private float offset;
 
     void Update() {
-        GetInput();
+        //GetInput();
     }
 
-    private void GetInput(){
+   /* private void GetInput(){
         if (Input.GetKey(KeyCode.UpArrow)){
             transform.Translate(Vector3.up * cameraSpeed * Time.deltaTime);
         }
@@ -30,7 +30,7 @@ public class CameraMovement : MonoBehaviour {
         }
 
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, 0 - offset, xMax - offset), Mathf.Clamp(transform.position.y, yMin + offset, 0 + offset),-10);
-    }
+    }*/
 
     public void SetLimits(Vector3 maxTile, float offset){
         Vector3 wp = Camera.main.ViewportToWorldPoint(new Vector3(1, 0));

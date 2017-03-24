@@ -17,11 +17,11 @@ public class TowerBtn : MonoBehaviour {
     {
         if (selected)
         {
-            this.GetComponent<Renderer>().material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
+            this.GetComponent<MeshRenderer>().material.shader = Shader.Find("Self-Illumin/Bumped Diffuse");
         }
         else
         {
-            this.GetComponent<Renderer>().material.shader = Shader.Find("Diffuse");
+            this.GetComponent<MeshRenderer>().material.shader = Shader.Find("Self-Illumin/Diffuse");
         }
     }
 }

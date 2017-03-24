@@ -77,9 +77,11 @@ public class TowerPanel : MonoBehaviour {
         {
             case 0:
                 Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selectedIdx);
+                GameManager.Instance.PickTower(towers[selectedIdx]);
                 break;
             case 1:
                 Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selectedIdx);
+                GameManager.Instance.PickTower(towers[selectedIdx]);
                 break;
             case 2:
                 Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selectedIdx);
