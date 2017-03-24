@@ -56,8 +56,8 @@ public class LevelManager : Singleton<LevelManager> {
 		}
 
         maxTile = Tiles[new Point(mapX - 1, mapY - 1)].transform.position;
-        cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
-        miniMap.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
+        cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
+        miniMap.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
         //TowerPanel = GameObject.Find("TowerPanel");
         //TowerPanel.SetActive(false);
         Canvas = GameObject.Find("Canvas1");

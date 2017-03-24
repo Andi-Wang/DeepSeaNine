@@ -68,7 +68,7 @@ public class TileScript : MonoBehaviour {
 
     }
 
-    private void OnMouseOver() {
+    /*private void OnMouseOver() {
 
         //display tower menu when user clicks wall tile.
        if (!EventSystem.current.IsPointerOverGameObject()) {
@@ -92,8 +92,8 @@ public class TileScript : MonoBehaviour {
                 PlaceTower();
             }
 
-        }*/
-    }
+        }
+    }*/
 
     public void PlaceTower() {
 
