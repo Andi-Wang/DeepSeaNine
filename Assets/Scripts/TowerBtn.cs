@@ -12,4 +12,16 @@ public class TowerBtn : MonoBehaviour {
             return towerPrefab;
         }
     }
+
+    public void highlighted(bool selected)
+    {
+        if (selected)
+        {
+            this.GetComponent<Renderer>().material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
+        }
+        else
+        {
+            this.GetComponent<Renderer>().material.shader = Shader.Find("Diffuse");
+        }
+    }
 }
