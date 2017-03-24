@@ -7,6 +7,7 @@ public class TileScript : MonoBehaviour {
 
     public Point GridPosition { get; private set; }
     public string Type { get; private set; }
+    public bool IsTower { get; private set; }
 
     private Color startColor;
     // Use this for initialization
@@ -24,6 +25,7 @@ public class TileScript : MonoBehaviour {
         this.GridPosition = gridPos;
         transform.position = worldPos;
         this.Type = "";
+        this.IsTower = false;
 
         if (type == 0){
 
@@ -68,7 +70,17 @@ public class TileScript : MonoBehaviour {
 
     }
 
-    private void OnMouseOver() {
+    public void TowerMenu(Vector3 loc) {
+        if (this.Type == "wall") {
+            GameObject towerMenu = LevelManager.Instance.TowerMenu;
+            towerMenu.GetComponent<RectTransform>().transform.position = loc;
+            towerMenu.SetActive(true);
+            //LevelManager.Instance.TowerPanel.SetActive(true);
+            GameManager.Instance.CurrentTile = this;
+        }
+    }
+
+    /*private void OnMouseOver() {
 
         //display tower menu when user clicks wall tile.
        if (!EventSystem.current.IsPointerOverGameObject()) {
@@ -92,13 +104,14 @@ public class TileScript : MonoBehaviour {
                 PlaceTower();
             }
 
-        }*/
-    }
+        }
+    }*/
 
     public void PlaceTower() {
 
         GameObject tower = (GameObject)Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
         tower.transform.SetParent(transform);
         GameManager.Instance.BuyTower();
+        this.IsTower = true;
     }
 }

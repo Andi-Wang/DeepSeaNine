@@ -19,11 +19,16 @@ public class LevelManager : Singleton<LevelManager> {
 
     public Dictionary<Point, TileScript> Tiles { get; set; }
     //public GameObject TowerPanel { get; private set; }
-    public GameObject Canvas { get; private set; }
+    public GameObject TowerMenu { get; private set; }
 
 	public float TileSize{
 		get { return tilePrefabs[0].GetComponent<SpriteRenderer> ().sprite.bounds.size.x; }
 	}
+
+    public Vector3 worldStart { get; private set; }
+
+
+
 	// Use this for initialization
 	void Start() {
 		CreateLevel();
@@ -45,9 +50,9 @@ public class LevelManager : Singleton<LevelManager> {
 
         Vector3 maxTile = Vector3.zero;
 
-		Vector3 worldStart = Camera.main.ScreenToWorldPoint (new Vector3 (0, Screen.height));
+        worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
 
-		for (int y = 0; y < mapY; y++) {
+        for (int y = 0; y < mapY; y++) {
             char[] newTiles = mapData[y].ToCharArray();
 			for (int x = 0; x < mapX; x++) {
 				
@@ -56,12 +61,12 @@ public class LevelManager : Singleton<LevelManager> {
 		}
 
         maxTile = Tiles[new Point(mapX - 1, mapY - 1)].transform.position;
-        cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
-        miniMap.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
+        cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
+        miniMap.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
         //TowerPanel = GameObject.Find("TowerPanel");
         //TowerPanel.SetActive(false);
-        Canvas = GameObject.Find("Canvas1");
-        Canvas.SetActive(false);
+        TowerMenu = GameObject.Find("TowerPanel");
+        TowerMenu.SetActive(false);
     }
 
 	private void PlaceTile(string tileType, int x, int y, Vector3 worldStart){
