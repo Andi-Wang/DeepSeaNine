@@ -11,7 +11,7 @@ namespace UnityStandardAssets._2D {
         // Use this for initialization
         void Start() {
             playerArray = new Player[4];
-            createPlayer(1, 12, 12);
+            createPlayer(1, 12, 11);
 
         }
 
