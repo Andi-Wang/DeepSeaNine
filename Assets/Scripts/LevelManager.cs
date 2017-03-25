@@ -18,6 +18,10 @@ public class LevelManager : Singleton<LevelManager> {
     private MiniMapLimits miniMap;
 
     public Dictionary<Point, TileScript> Tiles { get; set; }
+
+	// Valid water tiles.
+	public List<Point> WaterTiles { get; set; }
+
     //public GameObject TowerPanel { get; private set; }
     public GameObject TowerMenu { get; private set; }
 
@@ -42,6 +46,7 @@ public class LevelManager : Singleton<LevelManager> {
 	private void CreateLevel(){
 
         Tiles = new Dictionary<Point, TileScript>();
+		this.WaterTiles = new List<Point> ();
 
         string[] mapData = ReadLevelText();
 

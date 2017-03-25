@@ -21,7 +21,6 @@ public class TileScript : MonoBehaviour {
 	}
 
     public void Setup(Point gridPos, Vector3 worldPos, int type, Transform parent) {
-
         this.GridPosition = gridPos;
         transform.position = worldPos;
         this.Type = "";
@@ -50,6 +49,9 @@ public class TileScript : MonoBehaviour {
         }
         transform.SetParent(parent);
         LevelManager.Instance.Tiles.Add(gridPos, this);
+		if (this.Type == "water") {
+			LevelManager.Instance.WaterTiles.Add(gridPos);
+		}
         startColor = this.GetComponent<Renderer>().material.color;
     }
 
