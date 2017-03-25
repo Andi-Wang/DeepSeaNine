@@ -5,10 +5,9 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets._2D {
-    public class Player : MonoBehaviour {
+	public class Player : Movable {
         private Point startLocation;
-        private Point location;
-        private Vector3 facing;
+
         public int playerNumber { get; private set; }
 
         private float moveCounter = 0;
@@ -39,6 +38,7 @@ namespace UnityStandardAssets._2D {
         // Use this for initialization
         void Start() {
             moveSprite(startLocation);
+			restrictedTileTypes = new string[]{ "water" };
         }
 
         // Update is called once per frame
@@ -200,44 +200,13 @@ namespace UnityStandardAssets._2D {
             }
         }
 
-        //Get the next point in the given direction
-        private Point getNextPoint(Vector3 facing) {
-            Point next = new Point(location.X + (int)facing.x, location.Y + (int)facing.y);
-            return next;
-        }
-
-        //Move the player in the given direction if the new space is not on water (illegal); call moveSprite() to update the player's facing direction
-        private void moveInDirection(Vector3 facing) {
-            if(facing != Vector3.zero) {
-                Point next;
-                if (facing == Vector3.up || facing == Vector3.down) {
-                    next = getNextPoint(-facing);
-                }
-                else {
-                    next = getNextPoint(facing);
-                }                
-                
-                if (LevelManager.Instance.Tiles[next].Type != "water") {
-                    location = next;
-                }
-                moveSprite(location);
-            }
-        }
-
-        //Put the player on the given point and update facing direction
-        private void moveSprite(Point point) {
-            transform.position = new Vector3(LevelManager.Instance.worldStart.x + LevelManager.Instance.TileSize * point.X, LevelManager.Instance.worldStart.y - LevelManager.Instance.TileSize * point.Y, 0);
-            float angle = Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }
-
-        //Creates the player at coordinates x and y with the given player number; sets wherever they start to be the default start location
-        public void createPlayerAt(int number, int x, int y) {
-            playerNumber = number;
-            startLocation = new Point(x, y);
-            location = startLocation;
-            facing = Vector3.right;
-            moveSprite(location);
-        }
+		//Creates the player at coordinates x and y with the given player number; sets wherever they start to be the default start location
+		public void createPlayerAt(int number, int x, int y) {
+			playerNumber = number;
+			startLocation = new Point(x, y);
+			location = startLocation;
+			facing = Vector3.right;
+			moveSprite(location);
+		}
     }
 }
