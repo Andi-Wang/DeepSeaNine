@@ -57,6 +57,7 @@ namespace UnityStandardAssets._2D {
         private void Awake() {
             player = GetComponent<Player>();
             input = new Input();
+            input.lastDirection = new Vector3(1.0f, 0f, 0f);
         }
 
         private void Update() {
