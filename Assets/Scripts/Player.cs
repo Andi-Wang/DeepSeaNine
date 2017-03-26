@@ -6,7 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets._2D {
 	public class Player : Movable {
-        private Point startLocation;
+
 
         public int playerNumber { get; private set; }
 
@@ -34,6 +34,8 @@ namespace UnityStandardAssets._2D {
         private const float interactTime = 0.5f;
         private const float moveCooldown = 0.1f;
         private const float fireCooldown = 0.2f;
+
+		private Point startLocation;
 
         // Use this for initialization
         void Start() {
