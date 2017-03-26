@@ -12,7 +12,7 @@ public class TileScript : MonoBehaviour {
     private Color startColor;
     // Use this for initialization
     void Start() {
-		
+        IsTower = false;
 	}
 	
 	// Update is called once per frame
@@ -70,14 +70,14 @@ public class TileScript : MonoBehaviour {
 
     }
 
-    public void TowerMenu(Vector3 loc) {
-        if (this.Type == "wall") {
-            GameObject towerMenu = LevelManager.Instance.TowerMenu;
-            towerMenu.GetComponent<RectTransform>().transform.position = loc;
-            towerMenu.SetActive(true);
+    public void setCurrentTile(int playerNumber) {
+        //if (this.Type == "wall") {
+            //GameObject towerMenu = LevelManager.Instance.TowerMenu;
+            //towerMenu.GetComponent<RectTransform>().transform.position = loc;
+            //towerMenu.SetActive(true);
             //LevelManager.Instance.TowerPanel.SetActive(true);
-            GameManager.Instance.CurrentTile = this;
-        }
+            GameManager.Instance.CurrentTile[playerNumber - 1] = this;
+        //}
     }
 
     /*private void OnMouseOver() {
@@ -107,11 +107,12 @@ public class TileScript : MonoBehaviour {
         }
     }*/
 
-    public void PlaceTower() {
-
-        GameObject tower = (GameObject)Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
-        tower.transform.SetParent(transform);
-        GameManager.Instance.BuyTower();
-        this.IsTower = true;
+    public void PlaceTower(int playerNumber) {
+        if (GameManager.Instance.ClickedBtn[playerNumber - 1] != null && !IsTower) {
+            GameObject tower = (GameObject)Instantiate(GameManager.Instance.ClickedBtn[playerNumber - 1].TowerPrefab, transform.position, Quaternion.identity);
+            tower.transform.SetParent(transform);
+            GameManager.Instance.BuyTower(playerNumber);
+            this.IsTower = true;
+        }
     }
 }

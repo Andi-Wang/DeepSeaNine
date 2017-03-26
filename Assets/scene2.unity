@@ -889,6 +889,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb957911d629e394bad28a26c2149088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1438037213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1438037215}
+  - component: {fileID: 1438037214}
+  m_Layer: 0
+  m_Name: ShipSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1438037214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1438037213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4de695963435814080c185bcb908e19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pirateShipPrefab: {fileID: 1842755781405844, guid: 15d199d5e02ccd44393cc389996c21b0,
+    type: 2}
+--- !u!4 &1438037215
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1438037213}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.4388926, y: 6.1483955, z: -54.504086}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1593258295
 Prefab:
   m_ObjectHideFlags: 0
