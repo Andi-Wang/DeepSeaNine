@@ -26,7 +26,7 @@ namespace UnityStandardAssets._2D {
                 if(playerUIPanels[i] != null) {
                     playerUIPanels[i].transform.FindChild("AmmoText").GetComponent<Text>().text = playerArray[i].Ammo.ToString();
                     playerUIPanels[i].transform.FindChild("GoldText").GetComponent<Text>().text = playerArray[i].Gold.ToString();
-                    //edit ammo bar
+                    playerUIPanels[i].transform.FindChild("AmmoBarBackgroundImage").FindChild("AmmoBarImage").GetComponent<Image>().fillAmount = (float)playerArray[i].AmmoInClip/playerArray[i].ClipSize;
                 }
             }
         }

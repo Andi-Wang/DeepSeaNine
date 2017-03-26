@@ -28,6 +28,8 @@ namespace UnityStandardAssets._2D {
         public int Ammo { get { return ammo; } }
         private int gold = 100;
         public int Gold { get { return gold; } }
+        public int AmmoInClip { get { return ammoInClip; } }
+        public int ClipSize { get { return clipSize; } }
 
         //Tower selection menu
         private int selectedOption = 0;
