@@ -73,17 +73,9 @@ public class LevelManager : Singleton<LevelManager> {
         cameraMovement.addPlayer(GameObject.Find("player1(Clone)"));
         cameraMovement.addPlayer(GameObject.Find("player2(Clone)"));
         miniMap.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
-<<<<<<< HEAD
-        //TowerPanel = GameObject.Find("TowerPanel");
-        //TowerPanel.SetActive(false);
-        TowerMenu = GameObject.Find("TowerPanel");
-        TowerMenu.SetActive(false);
 
 		createBoundaryCollisionBoxes ();
-=======
-        
->>>>>>> 1107192ab7998571c82390ea6e61b1ef36834a78
-    }
+       }
 
 	private void PlaceTile(string tileType, int x, int y, Vector3 worldStart){
 
@@ -101,28 +93,25 @@ public class LevelManager : Singleton<LevelManager> {
         return data.Split('-');
     }
 
-<<<<<<< HEAD
 	private void createBoundaryCollisionBoxes() {
 		List<Vector2> edgePoints = new List<Vector2> ();
-		float left = worldStart.x + TileSize;
+		float left = worldStart.x - TileSize/2;
 		float top = worldStart.y + TileSize / 2;
 		float bottom = worldStart.y - (TileSize * MapY - TileSize / 2);
 		edgePoints.Add (new Vector2 (left , top));
 		edgePoints.Add (new Vector2 (left + (TileSize * MapX), top));
-		edgePoints.Add (new Vector2 (worldStart.x + (TileSize * MapX), bottom));
-		edgePoints.Add (new Vector2 (worldStart.x , bottom));
-		edgePoints.Add (new Vector2 (worldStart.x, top));
+		edgePoints.Add (new Vector2 (left + (TileSize * MapX), bottom));
+		edgePoints.Add (new Vector2 (left , bottom));
+		edgePoints.Add (new Vector2 (left, top));
 
 		print ("Creating collisionboxes");
 		map.GetComponent<EdgeCollider2D>().points = edgePoints.ToArray ();
 
 	}
-=======
     public void setTowerMenu(GameObject towerMenu, int playerNumber) {
         if(TowerMenu == null) {
             TowerMenu = new GameObject[4];
         }
         TowerMenu[playerNumber - 1] = towerMenu;
     }
->>>>>>> 1107192ab7998571c82390ea6e61b1ef36834a78
 }
