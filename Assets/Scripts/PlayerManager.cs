@@ -36,7 +36,7 @@ namespace UnityStandardAssets._2D {
             Player player = Instantiate(playerPrefabs[number - 1]).GetComponent<Player>();
             player.createPlayerAt(number, x, y);
             playerArray[number - 1] = player;
-            playerUIPanels[number - 1] = playerUICanvas.transform.FindChild("PlayerUIPanel" + number).gameObject;
+            playerUIPanels[number - 1] = playerUICanvas.transform.FindChild("HealthPanel").FindChild("PlayerUIPanel" + number).gameObject;
         }
     }
 }
