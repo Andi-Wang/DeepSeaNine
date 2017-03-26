@@ -30,7 +30,6 @@ namespace UnityStandardAssets._2D {
         //Tower selection menu
         private int selectedOption = 0;
         private int optionsPerRow = 2;  //temporary; will use an accessor later
-        private int numOptions = 2;     //temporary; will use an accessor later
 
         private const int clipSize = 8;
         private const float reloadTime = 2;
@@ -108,11 +107,11 @@ namespace UnityStandardAssets._2D {
                     else if(input.leftHold && !input.prevLeftHold)     { selectedOption--; }                   //Move left one space
 
                     //All actions that can alter the selected option wrap back around
-                    if (selectedOption >= numOptions) {
-                        selectedOption %= numOptions;
+                    if (selectedOption >= towerPanel.numOptions()) {
+                        selectedOption %= towerPanel.numOptions();
                     }
                     while (selectedOption < 0) {
-                        selectedOption += numOptions;
+                        selectedOption += towerPanel.numOptions();
                     }
                     LevelManager.Instance.Tiles[location].setCurrentTile(playerNumber);
                     towerPanel.menuSelection(selectedOption);
@@ -187,21 +186,21 @@ namespace UnityStandardAssets._2D {
                     }
                 }
             }
-            //If the player is firing their weapon (weapons are fully automatic)
-            else if(input.fireDown || input.fireHold) {
-                //Fire weapon in facing direction if there is ammo left in the clip
-                if(ammoInClip > 0 && fireCounter > fireCooldown) {
-                    ammoInClip--;
-                    fireCounter = 0;
-                    reloadCounter = 0;
-                    //fire bullet on this line
-                    GameObject bullet = Instantiate(tower_projectile, transform.position, transform.rotation) as GameObject;
-                    bullet.GetComponent<Rigidbody2D>().velocity = facing * projectileSpeed;
-                }
-            }
-            //If the player is moving (can move anywhere except water)
             else {
-                if(moveCounter > moveCooldown) {
+                //If the player is firing their weapon (weapons are fully automatic)
+                if (input.fireDown || input.fireHold) {
+                    //Fire weapon in facing direction if there is ammo left in the clip
+                    if (ammoInClip > 0 && fireCounter > fireCooldown) {
+                        ammoInClip--;
+                        fireCounter = 0;
+                        reloadCounter = 0;
+                        //fire bullet on this line
+                        GameObject bullet = Instantiate(tower_projectile, transform.position, transform.rotation) as GameObject;
+                        bullet.GetComponent<Rigidbody2D>().velocity = facing * projectileSpeed;
+                    }
+                }
+                //If the player is moving (can move anywhere except water)
+                if (moveCounter > moveCooldown) {
                     if (input.upHold || input.downHold || input.leftHold || input.rightHold) {
                         moveInDirection(facing);
                         moveCounter = 0;

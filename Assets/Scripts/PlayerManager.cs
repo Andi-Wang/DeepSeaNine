@@ -1,15 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets._2D {
     public class PlayerManager : Singleton<PlayerManager> {
         public GameObject[] playerPrefabs;
         public Player[] playerArray;
+        public Canvas playerUICanvas;
+
+        private GameObject[] playerUIPanels;
 
 
         // Use this for initialization
         void Start() {
+            playerUIPanels = new GameObject[4];
             playerArray = new Player[4];
             createPlayer(1, 12, 11);
             createPlayer(2, 13, 12);
@@ -25,6 +30,7 @@ namespace UnityStandardAssets._2D {
             Player player = Instantiate(playerPrefabs[number - 1]).GetComponent<Player>();
             player.createPlayerAt(number, x, y);
             playerArray[number - 1] = player;
+            playerUIPanels[number - 1] = playerUICanvas.transform.FindChild("PlayerUIPanel" + number).gameObject;
         }
     }
 }
