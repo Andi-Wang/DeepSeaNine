@@ -24,18 +24,15 @@ public class ShipSpawner : Singleton<ShipSpawner> {
 		spawnTimer++;
 		if (spawnTimer > spawnFrequency) {
 			spawnTimer = 0;
-			validShipSpawn ();
+			shipSpawn();
 		}
 	}
 
 	// spawns ship in random location from list of valid spawn points
-	private void validShipSpawn(){
-		spawnShip (spawnPoints [(int)System.Math.Floor ((float)UnityEngine.Random.Range (0, spawnPoints.Count))]);
+	private void shipSpawn(){
+		Point spawnPoint = spawnPoints [(int)System.Math.Floor ((float)UnityEngine.Random.Range (0, spawnPoints.Count))];
+		PirateShip ship = Instantiate (pirateShipPrefab).GetComponent<PirateShip> ();
+		ship.setupShipAt (spawnPoint);
 	}
 
-	// spawn a ship at location. Warning: dDoes does not check if it is a valid tile
-	private void spawnShip (Point location){
-		PirateShip ship = Instantiate (pirateShipPrefab).GetComponent<PirateShip> ();
-		ship.setupShipAt (location);
-	}
 }
