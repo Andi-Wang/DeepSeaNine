@@ -5,10 +5,9 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets._2D {
-    public class Player : MonoBehaviour {
+	public class Player : Movable {
         private Point startLocation;
-        private Point location;
-        private Vector3 facing;
+
         public int playerNumber { get; private set; }
         private TowerPanel towerPanel;
 
@@ -41,6 +40,7 @@ namespace UnityStandardAssets._2D {
         void Start() {
             moveSprite(startLocation);
             towerPanel = GameObject.Find("Canvas" + playerNumber).transform.FindChild("TowerPanel" + playerNumber).GetComponent<TowerPanel>();
+			restrictedTileTypes = new string[]{ "water" };
         }
 
         // Update is called once per frame
@@ -201,6 +201,7 @@ namespace UnityStandardAssets._2D {
             }
         }
 
+   /*
         //Get the next point in the given direction
         private Point getNextPoint(Vector3 facing) {
             Point next = new Point(location.X + (int)facing.x, location.Y + (int)facing.y);
@@ -231,7 +232,7 @@ namespace UnityStandardAssets._2D {
             float angle = Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
-
+        */
         //Creates the player at coordinates x and y with the given player number; sets wherever they start to be the default start location
         public void createPlayerAt(int number, int x, int y) {
             
