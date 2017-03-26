@@ -76,7 +76,7 @@ public class TowerPanel : MonoBehaviour {
         }*/
     }
 
-    public void handleSelection()
+    public void handleSelection(int playerNumber)
     {
         /*
         GUI.FocusControl(towers[selection].name);
@@ -103,6 +103,6 @@ public class TowerPanel : MonoBehaviour {
         }
         */
 
-        GameManager.Instance.PickTower(towers[selection]);
+        GameManager.Instance.PickTower(towers[selection], playerNumber);
     }
 }

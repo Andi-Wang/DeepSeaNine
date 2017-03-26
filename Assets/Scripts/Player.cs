@@ -42,6 +42,7 @@ namespace UnityStandardAssets._2D {
         void Start() {
             moveSprite(startLocation);
             towerPanel = GameObject.Find("Canvas" + playerNumber).transform.FindChild("TowerPanel" + playerNumber).GetComponent<TowerPanel>();
+            towerPanel.gameObject.SetActive(false);
 			restrictedTileTypes = new string[]{ "water" };
         }
 
@@ -109,7 +110,7 @@ namespace UnityStandardAssets._2D {
                     while (selectedOption < 0) {
                         selectedOption += numOptions;
                     }
-                    LevelManager.Instance.Tiles[location].setCurrentTile();
+                    LevelManager.Instance.Tiles[location].setCurrentTile(playerNumber);
                     towerPanel.menuSelection(selectedOption);
                 }
             }
@@ -133,8 +134,8 @@ namespace UnityStandardAssets._2D {
                     working = false;
                     moveSprite(location);//temporary to correct facing after random rotation
 
-                    towerPanel.handleSelection();
-                    LevelManager.Instance.Tiles[location].PlaceTower();
+                    towerPanel.handleSelection(playerNumber);
+                    LevelManager.Instance.Tiles[location].PlaceTower(playerNumber);
                 }
             }
             //If the player starts building something

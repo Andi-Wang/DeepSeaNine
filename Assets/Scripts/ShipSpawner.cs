@@ -32,7 +32,7 @@ public class ShipSpawner : Singleton<ShipSpawner> {
 	private void shipSpawn(){
 		Point spawnPoint = spawnPoints [(int)System.Math.Floor ((float)UnityEngine.Random.Range (0, spawnPoints.Count))];
 		PirateShip ship = Instantiate (pirateShipPrefab).GetComponent<PirateShip> ();
-		ship.setupShipAt (spawnPoint);
+		//ship.setupShipAt (spawnPoint);
 	}
 
 }

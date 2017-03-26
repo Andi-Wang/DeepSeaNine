@@ -9,6 +9,11 @@ public class Movable : MonoBehaviour {
 
 	protected string[] restrictedTileTypes;
 
+    void Start() {
+        restrictedTileTypes = new string[10];
+    }
+
+
 	//Get the next point in the given direction
 	protected Point getNextPoint(Vector3 facing) {
 		Point next = new Point(location.X + (int)facing.x, location.Y + (int)facing.y);
