@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PirateShip : MonoBehaviour {
+public class PirateShip : Movable {
 
 	// Use this for initialization
 	void Start () {
-		
+		moveSprite(location);
+		restrictedTileTypes = new string[]{};
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public void setupShipAt(Point p) {
+		location = p;
+		facing = Vector3.right;
+		moveSprite(location);
 	}
 }
