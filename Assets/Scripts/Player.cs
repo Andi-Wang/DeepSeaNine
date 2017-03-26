@@ -11,6 +11,9 @@ namespace UnityStandardAssets._2D {
         private Vector3 facing;
         public int playerNumber { get; private set; }
 
+        [SerializeField]
+        private GameObject tower_projectile;
+
         private float moveCounter = 0;
         private float sellCounter = 0;
         private float fireCounter = 0;
@@ -208,7 +211,10 @@ namespace UnityStandardAssets._2D {
 
         //Move the player in the given direction if the new space is not on water (illegal); call moveSprite() to update the player's facing direction
         private void moveInDirection(Vector3 facing) {
-            if(facing != Vector3.zero) {
+            GameObject bullet = Instantiate(tower_projectile, transform.position, transform.rotation) as GameObject;
+            bullet.GetComponent<Rigidbody2D>().velocity = facing * 20;
+            
+            if (facing != Vector3.zero) {
                 Point next;
                 if (facing == Vector3.up || facing == Vector3.down) {
                     next = getNextPoint(-facing);
