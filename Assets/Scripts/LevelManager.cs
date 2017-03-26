@@ -98,11 +98,14 @@ public class LevelManager : Singleton<LevelManager> {
 
 	private void createBoundaryCollisionBoxes() {
 		List<Vector2> edgePoints = new List<Vector2> ();
-		edgePoints.Add (new Vector2 (worldStart.x, worldStart.y));
-		edgePoints.Add (new Vector2 (worldStart.x + (TileSize * MapX), worldStart.y));
-		edgePoints.Add (new Vector2 (worldStart.x + (TileSize * MapX), worldStart.y - (TileSize * (MapY - 1))));
-		edgePoints.Add (new Vector2 (worldStart.x , worldStart.y - (TileSize * (MapY - 1))));
-		edgePoints.Add (new Vector2 (worldStart.x, worldStart.y));
+		float left = worldStart.x + TileSize;
+		float top = worldStart.y + TileSize / 2;
+		float bottom = worldStart.y - (TileSize * MapY - TileSize / 2);
+		edgePoints.Add (new Vector2 (left , top));
+		edgePoints.Add (new Vector2 (left + (TileSize * MapX), top));
+		edgePoints.Add (new Vector2 (worldStart.x + (TileSize * MapX), bottom));
+		edgePoints.Add (new Vector2 (worldStart.x , bottom));
+		edgePoints.Add (new Vector2 (worldStart.x, top));
 
 		print ("Creating collisionboxes");
 		map.GetComponent<EdgeCollider2D>().points = edgePoints.ToArray ();

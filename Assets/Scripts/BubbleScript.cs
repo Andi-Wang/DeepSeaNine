@@ -15,7 +15,7 @@ public class BubbleScript : MonoBehaviour
 	}
 
 	void OnTriggerEnter2D(Collider2D coll) {
-		if (coll.tag == "BubbleWall") {
+		if (coll.tag.Equals("BubbleWall")) {
 			this.GetComponent<Rigidbody2D> ().velocity = this.GetComponent<Rigidbody2D> ().velocity * -1f;
 			print ("collision");
 		}
