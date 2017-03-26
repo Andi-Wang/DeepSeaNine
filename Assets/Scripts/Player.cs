@@ -22,6 +22,7 @@ namespace UnityStandardAssets._2D {
         private float interactCounter = 0;
         private bool selecting = false;
         private bool working = false;
+        private int projectileSpeed = 20;
         private int ammoInClip = 8;
         private int ammo = 80;
         private int gold = 100;
@@ -178,6 +179,8 @@ namespace UnityStandardAssets._2D {
                     fireCounter = 0;
                     reloadCounter = 0;
                     //fire bullet on this line
+                    GameObject bullet = Instantiate(tower_projectile, transform.position, transform.rotation) as GameObject;
+                    bullet.GetComponent<Rigidbody2D>().velocity = facing * projectileSpeed;
                 }
             }
             //If the player is moving (can move anywhere except water)
@@ -210,10 +213,7 @@ namespace UnityStandardAssets._2D {
         }
 
         //Move the player in the given direction if the new space is not on water (illegal); call moveSprite() to update the player's facing direction
-        private void moveInDirection(Vector3 facing) {
-            GameObject bullet = Instantiate(tower_projectile, transform.position, transform.rotation) as GameObject;
-            bullet.GetComponent<Rigidbody2D>().velocity = facing * 20;
-            
+        private void moveInDirection(Vector3 facing) {            
             if (facing != Vector3.zero) {
                 Point next;
                 if (facing == Vector3.up || facing == Vector3.down) {
