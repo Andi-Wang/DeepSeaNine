@@ -1350,6 +1350,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114892877661586566, guid: 29f80a97554104e4d83e567805e8347f,
+        type: 2}
+      propertyPath: spawnTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892877661586566, guid: 29f80a97554104e4d83e567805e8347f,
+        type: 2}
+      propertyPath: BubbleLayer
+      value: 
+      objectReference: {fileID: 2136220409}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 29f80a97554104e4d83e567805e8347f, type: 2}
   m_IsPrefabParent: 0
@@ -1390,7 +1400,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 1380953499}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 568f0d2ed845148eda4296eb44ae0c45, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -2118,3 +2128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b939a5b3ce5e641a9713880a7b7d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2136220409 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4738033621722400, guid: 3519848eb32eb461389d2e9b4eb8a697,
+    type: 2}
+  m_PrefabInternal: {fileID: 908218617}
