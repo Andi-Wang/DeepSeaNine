@@ -15,21 +15,6 @@ public class BubbleScript : MonoBehaviour
 	}
 
 	void OnTriggerEnter2D(Collider2D coll) {
-		if (coll.tag.Equals("BubbleWall")) {
-//			float worldStartX = LevelManager.Instance.worldStart.x;
-//			float tileSize = LevelManager.Instance.TileSize;
-//			print ("collision " +  transform.position);
-//			Vector2 directionalChange = new Vector2 (-1, -1);
-//			if (transform.position.x == worldStartX - tileSize / 2
-//				|| transform.position.x == worldStartX - tileSize / 2 + (tileSize * LevelManager.Instance.MapX)) {
-//				print ("Redirecting along x axis");
-//				directionalChange = new Vector2 (-1, 1);
-//			} else {
-//				directionalChange = new Vector2 (1, -1);
-//			}
-//
-//			this.GetComponent<Rigidbody2D> ().velocity = Vector2.Scale (this.GetComponent<Rigidbody2D> ().velocity, directionalChange);
-		}
 	}
 
 	public void setup(Point gridPosition, Vector3 worldPosition, Transform parent) {
