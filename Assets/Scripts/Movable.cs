@@ -6,6 +6,7 @@ public class Movable : MonoBehaviour {
 
 	protected Point location;
 	protected Vector3 facing;
+
 	protected string[] restrictedTileTypes;
 
 	//Get the next point in the given direction
@@ -47,5 +48,4 @@ public class Movable : MonoBehaviour {
 		float angle = Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
-
 }
