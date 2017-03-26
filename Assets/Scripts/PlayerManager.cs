@@ -22,7 +22,13 @@ namespace UnityStandardAssets._2D {
 
         // Update is called once per frame
         void Update() {
-
+            for(int i = 0; i < playerUIPanels.Length; i++) {
+                if(playerUIPanels[i] != null) {
+                    playerUIPanels[i].transform.FindChild("AmmoText").GetComponent<Text>().text = playerArray[i].Ammo.ToString();
+                    playerUIPanels[i].transform.FindChild("GoldText").GetComponent<Text>().text = playerArray[i].Gold.ToString();
+                    //edit ammo bar
+                }
+            }
         }
 
 

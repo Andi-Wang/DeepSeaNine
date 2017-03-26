@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets._2D {
-	public class Player : Movable {
+    public class Player : Movable {
 
 
         public int playerNumber { get; private set; }
@@ -25,7 +25,9 @@ namespace UnityStandardAssets._2D {
         private int projectileSpeed = 20;
         private int ammoInClip = 8;
         private int ammo = 80;
+        public int Ammo { get { return ammo; } }
         private int gold = 100;
+        public int Gold { get { return gold; } }
 
         //Tower selection menu
         private int selectedOption = 0;
