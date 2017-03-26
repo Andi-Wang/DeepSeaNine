@@ -158,7 +158,7 @@ namespace UnityStandardAssets._2D {
             }
             //If the player is interacting with something
             else if(input.interactDown) {
-                TileScript next = LevelManager.Instance.Tiles[getNextPoint(facing)];
+                TileScript next = LevelManager.Instance.Tiles[location.getPointInDirection(facing)];
 
                 //Interact with something if facing an object that can be interacted with
                 if(true) {

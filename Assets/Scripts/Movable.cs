@@ -9,23 +9,18 @@ public class Movable : MonoBehaviour {
 
 	protected string[] restrictedTileTypes;
 
-	//Get the next point in the given direction
-	protected Point getNextPoint(Vector3 facing) {
-		Point next = new Point(location.X + (int)facing.x, location.Y + (int)facing.y);
-		return next;
-	}
-
 	//Move the player in the given direction if the new space is not on water (illegal); call moveSprite() to update the player's facing direction
 	protected void moveInDirection(Vector3 facing) {
 		if(facing != Vector3.zero) {
 			Point next;
 			if (facing == Vector3.up || facing == Vector3.down) {
-				next = getNextPoint(-facing);
+				next = location.getPointInDirection(-facing);
 			}
 			else {
-				next = getNextPoint(facing);
+				next = location.getPointInDirection(facing);
 			}                
 
+			// isRestricted()
 			bool unrestrictedTile = true;
 			string nextTileType = LevelManager.Instance.Tiles [next].Type;
 			foreach (string restrictedTileType in restrictedTileTypes){

@@ -11,13 +11,17 @@ public class ShipSpawner : Singleton<ShipSpawner> {
 	private float spawnFrequency { get; set; } // number of frames
 	private float spawnTimer;
 
+	private List<Point> dockPoints;
+	private Dictionary<Point, bool> destinationClaimed; 
+
 	public Dictionary<Point, PirateShip> ships;
 
 	// Use this for initialization
 	void Start () {
-		spawnPoints = new List<Point> (){new Point(1,1) }; //LevelManager.Instance.WaterTiles;
+		spawnPoints = new List<Point> (){new Point(1,1) }; //TODO: paremeter
 		spawnFrequency = 600;
 		spawnTimer = 600;
+		dockPoints = LevelManager.Instance.getPointsByType ("dock");
 	}
 	
 	void Update () {
@@ -32,7 +36,9 @@ public class ShipSpawner : Singleton<ShipSpawner> {
 	private void shipSpawn(){
 		Point spawnPoint = spawnPoints [(int)System.Math.Floor ((float)UnityEngine.Random.Range (0, spawnPoints.Count))];
 		PirateShip ship = Instantiate (pirateShipPrefab).GetComponent<PirateShip> ();
-		ship.setupShipAt (spawnPoint);
+
+		Point destination;
+		ship.setupShip (spawnPoint);//, destination);
 	}
 
 }

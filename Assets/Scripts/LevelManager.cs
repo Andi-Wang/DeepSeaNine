@@ -84,4 +84,28 @@ public class LevelManager : Singleton<LevelManager> {
         string data = bindData.text.Replace(Environment.NewLine, string.Empty);
         return data.Split('-');
     }
+
+	public List<Point> getPointsByType(String type){
+		List<Point> typePoints = new List<Point>();
+		foreach (KeyValuePair<Point, TileScript> tile in Tiles){
+			if (tile.Value.Type == type){
+				typePoints.Add(tile.Key);
+			}
+		}
+		return typePoints;
+	}
+
+/*	public static List<Vector3> aStar(Point start, Point end, string type){
+		Vector3[] directions = new Vector3[]{ Vector3.up, Vector3.down, Vector3.left, Vector3.right };
+		foreach (Vector3 direction in directions) {
+			Point next;
+			if (direction == Vector3.up || direction == Vector3.down) {
+				//next = getNextPoint(-direction);
+			}
+			else {
+				//next = getNextPoint(direction);
+			} 
+		}
+
+	}*/
 }
