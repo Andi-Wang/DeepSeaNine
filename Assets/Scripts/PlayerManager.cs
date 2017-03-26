@@ -21,12 +21,14 @@ namespace UnityStandardAssets._2D {
         }
 
         // Update is called once per frame
-        void Update() {
-            for(int i = 0; i < playerUIPanels.Length; i++) {
-                if(playerUIPanels[i] != null) {
-                    playerUIPanels[i].transform.FindChild("AmmoText").GetComponent<Text>().text = playerArray[i].Ammo.ToString();
-                    playerUIPanels[i].transform.FindChild("GoldText").GetComponent<Text>().text = playerArray[i].Gold.ToString();
-                    //edit ammo bar
+        void FixedUpdate() {
+            for (int i = 0; i < playerUIPanels.Length; i++) {
+                GameObject panel = playerUIPanels[i];
+                if (panel != null) {
+                    Player player = playerArray[i];
+                    panel.transform.FindChild("AmmoText").GetComponent<Text>().text = player.Ammo.ToString();
+                    panel.transform.FindChild("GoldText").GetComponent<Text>().text = player.Gold.ToString();
+                    panel.transform.FindChild("AmmoBarBackgroundImage").FindChild("AmmoBarImage").GetComponent<Image>().fillAmount = (float)player.AmmoInClip / (float)Player.clipSize;
                 }
             }
         }
@@ -37,6 +39,7 @@ namespace UnityStandardAssets._2D {
             player.createPlayerAt(number, x, y);
             playerArray[number - 1] = player;
             playerUIPanels[number - 1] = playerUICanvas.transform.FindChild("PlayerUIPanel" + number).gameObject;
+            playerUIPanels[number - 1].SetActive(true);
         }
     }
 }

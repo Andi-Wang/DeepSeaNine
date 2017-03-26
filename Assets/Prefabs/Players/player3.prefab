@@ -64,6 +64,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823030338035314499c5b456a71350bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tower_projectile: {fileID: 1452985004803192, guid: 4bd96b34ca92af04fa6d1ab9eba88fd1,
+    type: 2}
 --- !u!212 &212930659752869112
 SpriteRenderer:
   m_ObjectHideFlags: 1

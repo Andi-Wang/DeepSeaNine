@@ -24,6 +24,7 @@ namespace UnityStandardAssets._2D {
         private bool working = false;
         private int projectileSpeed = 20;
         private int ammoInClip = 8;
+        public int AmmoInClip { get { return ammoInClip; } }
         private int ammo = 80;
         public int Ammo { get { return ammo; } }
         private int gold = 100;
@@ -33,7 +34,7 @@ namespace UnityStandardAssets._2D {
         private int selectedOption = 0;
         private int optionsPerRow = 2;  //temporary; will use an accessor later
 
-        private const int clipSize = 8;
+        public const int clipSize = 8;
         private const float reloadTime = 2;
         private const float buildUpgradeTime = 2;
         private const float sellTime = 2;
