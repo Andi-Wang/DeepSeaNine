@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerProjectile : MonoBehaviour {
-    private float projectileSpeed = 20;
-
     public Vector3 face;
 	// Use this for initialization
 	void Start () {

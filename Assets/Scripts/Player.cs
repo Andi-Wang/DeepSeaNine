@@ -188,20 +188,21 @@ namespace UnityStandardAssets._2D {
                 }
             }
             //If the player is firing their weapon (weapons are fully automatic)
-            else if(input.fireDown || input.fireHold) {
-                //Fire weapon in facing direction if there is ammo left in the clip
-                if(ammoInClip > 0 && fireCounter > fireCooldown) {
-                    ammoInClip--;
-                    fireCounter = 0;
-                    reloadCounter = 0;
-                    //fire bullet on this line
-                    GameObject bullet = Instantiate(tower_projectile, transform.position, transform.rotation) as GameObject;
-                    bullet.GetComponent<Rigidbody2D>().velocity = facing * projectileSpeed;
-                }
-            }
+           
             //If the player is moving (can move anywhere except water)
             else {
-                if(moveCounter > moveCooldown) {
+                if (input.fireDown || input.fireHold) {
+                    //Fire weapon in facing direction if there is ammo left in the clip
+                    if (ammoInClip > 0 && fireCounter > fireCooldown) {
+                        ammoInClip--;
+                        fireCounter = 0;
+                        reloadCounter = 0;
+                        //fire bullet on this line
+                        GameObject bullet = Instantiate(tower_projectile, transform.position, transform.rotation) as GameObject;
+                        bullet.GetComponent<Rigidbody2D>().velocity = facing * projectileSpeed;
+                    }
+                }
+                if (moveCounter > moveCooldown) {
                     if (input.upHold || input.downHold || input.leftHold || input.rightHold) {
                         moveInDirection(facing);
                         moveCounter = 0;
