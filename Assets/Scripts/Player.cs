@@ -10,6 +10,7 @@ namespace UnityStandardAssets._2D {
         private Point location;
         private Vector3 facing;
         public int playerNumber { get; private set; }
+        private TowerPanel towerPanel;
 
         private float moveCounter = 0;
         private float sellCounter = 0;
@@ -25,8 +26,8 @@ namespace UnityStandardAssets._2D {
 
         //Tower selection menu
         private int selectedOption = 0;
-        private int optionsPerRow = 3;  //temporary; will use an accessor later
-        private int numOptions = 9;     //temporary; will use an accessor later
+        private int optionsPerRow = 2;  //temporary; will use an accessor later
+        private int numOptions = 2;     //temporary; will use an accessor later
 
         private const int clipSize = 8;
         private const float reloadTime = 2;
@@ -39,6 +40,7 @@ namespace UnityStandardAssets._2D {
         // Use this for initialization
         void Start() {
             moveSprite(startLocation);
+            towerPanel = GameObject.Find("Canvas" + playerNumber).transform.FindChild("TowerPanel" + playerNumber).GetComponent<TowerPanel>();
         }
 
         // Update is called once per frame
@@ -83,47 +85,54 @@ namespace UnityStandardAssets._2D {
                 //If the player cancels the tower selection menu
                 if(input.cancelDown) {
                     selecting = false;
-                    LevelManager.Instance.TowerMenu.SetActive(false);
+                    LevelManager.Instance.TowerMenu[playerNumber - 1].SetActive(false);
                 }
                 //If the player releases the build button, begin building the last selected tower
                 else if(input.buildUpgradeUp) {
                     working = true;
                     selecting = false;
-                    LevelManager.Instance.TowerMenu.SetActive(false);
+                    LevelManager.Instance.TowerMenu[playerNumber - 1].SetActive(false);
                 }
                 //Otherwise, the player can alter the selected tower with movement keys
                 else {
-                    if(input.up)            { selectedOption -= optionsPerRow; }    //Move up one row
-                    else if(input.down)     { selectedOption += optionsPerRow; }    //Move down one row
-                    else if(input.right)    { selectedOption++; }                   //Move right one space
-                    else if(input.left)     { selectedOption--; }                   //Move left one space
+                    if(input.upHold && !input.prevUpHold)              { selectedOption -= optionsPerRow; }    //Move up one row
+                    else if(input.downHold && !input.prevDownHold)     { selectedOption += optionsPerRow; }    //Move down one row
+                    else if(input.rightHold && !input.prevRightHold)   { selectedOption++; }                   //Move right one space
+                    else if(input.leftHold && !input.prevLeftHold)     { selectedOption--; }                   //Move left one space
 
                     //All actions that can alter the selected option wrap back around
                     if (selectedOption >= numOptions) {
                         selectedOption %= numOptions;
                     }
-                    while (selectedOption <= 0) {
+                    while (selectedOption < 0) {
                         selectedOption += numOptions;
                     }
+                    LevelManager.Instance.Tiles[location].setCurrentTile();
+                    towerPanel.menuSelection(selectedOption);
                 }
             }
             //If the player is in the process of building something
             else if(working) {
-                transform.Rotate(new Vector3(0, 0, 90));//temporary "working" animation
                 buildUpgradeCounter += Time.deltaTime;
+                transform.Rotate(new Vector3(0, 0, 90));//temporary "working" animation
 
                 //If the player cancels the build command
-                if(input.cancelDown) {
+                if (input.cancelDown) {
                     buildUpgradeCounter = 0;
                     working = false;
                     moveSprite(location);//temporary to correct facing after random rotation
                 }
                 //If the build command completes
-                if(buildUpgradeCounter >= buildUpgradeTime) {
+                else if(buildUpgradeCounter >= buildUpgradeTime) {
+
+                    
                     //build the selected tower on this line
                     buildUpgradeCounter = 0;
                     working = false;
                     moveSprite(location);//temporary to correct facing after random rotation
+
+                    towerPanel.handleSelection();
+                    LevelManager.Instance.Tiles[location].PlaceTower();
                 }
             }
             //If the player starts building something
@@ -134,7 +143,11 @@ namespace UnityStandardAssets._2D {
                     //selectedOption = 0; //(uncomment this line if saving past selection is undesired)
                     //Build tower if there's no tower at location (open tower selection menu)
                     if (!currentTile.IsTower) {
-                        currentTile.TowerMenu(transform.position);
+                        //Debug.Log(LevelManager.Instance.TowerMenu[playerNumber - 1]);
+                        LevelManager.Instance.TowerMenu[playerNumber - 1].GetComponent<RectTransform>().transform.position = transform.position;
+                        LevelManager.Instance.TowerMenu[playerNumber - 1].SetActive(true);
+
+                        //currentTile.TowerMenu(transform.position);
                     }
                     //Upgrade tower if there is a tower at location (open tower upgrade selection menu)
                     else {
@@ -180,19 +193,7 @@ namespace UnityStandardAssets._2D {
             //If the player is moving (can move anywhere except water)
             else {
                 if(moveCounter > moveCooldown) {
-                    if (input.up || (input.upHold && facing == Vector3.up)) {
-                        moveInDirection(facing);
-                        moveCounter = 0;
-                    }
-                    else if (input.down || (input.downHold && facing == Vector3.down)) {
-                        moveInDirection(facing);
-                        moveCounter = 0;
-                    }
-                    else if (input.left || (input.leftHold && facing == Vector3.left)) {
-                        moveInDirection(facing);
-                        moveCounter = 0;
-                    }
-                    else if (input.right || (input.rightHold && facing == Vector3.right)) {
+                    if (input.upHold || input.downHold || input.leftHold || input.rightHold) {
                         moveInDirection(facing);
                         moveCounter = 0;
                     }
@@ -233,11 +234,15 @@ namespace UnityStandardAssets._2D {
 
         //Creates the player at coordinates x and y with the given player number; sets wherever they start to be the default start location
         public void createPlayerAt(int number, int x, int y) {
+            
             playerNumber = number;
             startLocation = new Point(x, y);
             location = startLocation;
             facing = Vector3.right;
             moveSprite(location);
+            
+            
+            LevelManager.Instance.setTowerMenu(GameObject.Find("TowerPanel" + playerNumber), playerNumber);
         }
     }
 }

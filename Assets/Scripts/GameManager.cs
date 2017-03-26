@@ -25,7 +25,7 @@ public class GameManager : Singleton<GameManager> {
         //place the tile after it is picked
         CurrentTile.PlaceTower();
         //to hide menu
-        LevelManager.Instance.TowerMenu.SetActive(false);
+        //LevelManager.Instance.TowerMenu.SetActive(false);
 
     }
 

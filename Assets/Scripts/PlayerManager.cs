@@ -12,7 +12,7 @@ namespace UnityStandardAssets._2D {
         void Start() {
             playerArray = new Player[4];
             createPlayer(1, 12, 11);
-
+            createPlayer(2, 13, 12);
         }
 
         // Update is called once per frame

@@ -70,14 +70,14 @@ public class TileScript : MonoBehaviour {
 
     }
 
-    public void TowerMenu(Vector3 loc) {
-        if (this.Type == "wall") {
-            GameObject towerMenu = LevelManager.Instance.TowerMenu;
-            towerMenu.GetComponent<RectTransform>().transform.position = loc;
-            towerMenu.SetActive(true);
+    public void setCurrentTile() {
+        //if (this.Type == "wall") {
+            //GameObject towerMenu = LevelManager.Instance.TowerMenu;
+            //towerMenu.GetComponent<RectTransform>().transform.position = loc;
+            //towerMenu.SetActive(true);
             //LevelManager.Instance.TowerPanel.SetActive(true);
             GameManager.Instance.CurrentTile = this;
-        }
+        //}
     }
 
     /*private void OnMouseOver() {
@@ -108,10 +108,11 @@ public class TileScript : MonoBehaviour {
     }*/
 
     public void PlaceTower() {
-
-        GameObject tower = (GameObject)Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
-        tower.transform.SetParent(transform);
-        GameManager.Instance.BuyTower();
-        this.IsTower = true;
+        if (GameManager.Instance.ClickedBtn != null) {
+            GameObject tower = (GameObject)Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
+            tower.transform.SetParent(transform);
+            GameManager.Instance.BuyTower();
+            this.IsTower = true;
+        }
     }
 }

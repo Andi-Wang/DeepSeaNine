@@ -19,7 +19,7 @@ public class LevelManager : Singleton<LevelManager> {
 
     public Dictionary<Point, TileScript> Tiles { get; set; }
     //public GameObject TowerPanel { get; private set; }
-    public GameObject TowerMenu { get; private set; }
+    public GameObject[] TowerMenu { get; private set; }
 
 	public float TileSize{
 		get { return tilePrefabs[0].GetComponent<SpriteRenderer> ().sprite.bounds.size.x; }
@@ -40,7 +40,6 @@ public class LevelManager : Singleton<LevelManager> {
 	}
 
 	private void CreateLevel(){
-
         Tiles = new Dictionary<Point, TileScript>();
 
         string[] mapData = ReadLevelText();
@@ -63,10 +62,7 @@ public class LevelManager : Singleton<LevelManager> {
         maxTile = Tiles[new Point(mapX - 1, mapY - 1)].transform.position;
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
         miniMap.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
-        //TowerPanel = GameObject.Find("TowerPanel");
-        //TowerPanel.SetActive(false);
-        TowerMenu = GameObject.Find("TowerPanel");
-        TowerMenu.SetActive(false);
+        
     }
 
 	private void PlaceTile(string tileType, int x, int y, Vector3 worldStart){
@@ -83,5 +79,12 @@ public class LevelManager : Singleton<LevelManager> {
         TextAsset bindData = Resources.Load("Level5") as TextAsset;
         string data = bindData.text.Replace(Environment.NewLine, string.Empty);
         return data.Split('-');
+    }
+
+    public void setTowerMenu(GameObject towerMenu, int playerNumber) {
+        if(TowerMenu == null) {
+            TowerMenu = new GameObject[4];
+        }
+        TowerMenu[playerNumber - 1] = towerMenu;
     }
 }
