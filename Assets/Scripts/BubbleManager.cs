@@ -32,7 +32,11 @@ public class BubbleManager : Singleton<BubbleManager> {
 	void spawn() {
 		// Spawns a bubble that is randomly chosen from the list of valid bubble spawn points.
 		List<Point> validSpawnPoints = LevelManager.Instance.WaterTiles;
-		spawnBubble(validSpawnPoints[(int)System.Math.Floor((float)UnityEngine.Random.Range(0, validSpawnPoints.Count))]);
+		Point potentialPoint = default(Point);
+		while (potentialPoint.Equals(default(Point)) || Bubbles.ContainsKey (potentialPoint)) {
+			potentialPoint = validSpawnPoints [(int)System.Math.Floor ((float)UnityEngine.Random.Range (0, validSpawnPoints.Count))];
+		}
+		spawnBubble(potentialPoint);
 	}
 
 	// Spawns in a bubble at a specific location. Does not check if it is a valid tile, so god help you if you mess it up.
@@ -44,7 +48,7 @@ public class BubbleManager : Singleton<BubbleManager> {
 		bs.setup(location, new Vector3(worldStart.x + (tileSize * location.X), worldStart.y - (tileSize * location.Y), this.zIndex), BubbleLayer);
 		Bubbles.Add (location, bs);
 	}
-
+		
 	// Update is called once per frame
 	void Update () {
 		

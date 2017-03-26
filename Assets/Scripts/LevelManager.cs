@@ -17,6 +17,10 @@ public class LevelManager : Singleton<LevelManager> {
     [SerializeField]
     private MiniMapLimits miniMap;
 
+	// Variables for quickly accessing the size of the map.
+	public int MapX;
+	public int MapY;
+
     public Dictionary<Point, TileScript> Tiles { get; set; }
 
 	// Valid water tiles.
@@ -50,28 +54,30 @@ public class LevelManager : Singleton<LevelManager> {
 
         string[] mapData = ReadLevelText();
 
-        int mapX = mapData[0].ToCharArray().Length;
-        int mapY = mapData.Length;
+		MapX = mapData[0].ToCharArray().Length;
+		MapY = mapData.Length;
 
         Vector3 maxTile = Vector3.zero;
 
         worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
 
-        for (int y = 0; y < mapY; y++) {
+        for (int y = 0; y < MapY; y++) {
             char[] newTiles = mapData[y].ToCharArray();
-			for (int x = 0; x < mapX; x++) {
+			for (int x = 0; x < MapX; x++) {
 				
 				PlaceTile(newTiles[x].ToString(), x, y, worldStart);
 			}
 		}
 
-        maxTile = Tiles[new Point(mapX - 1, mapY - 1)].transform.position;
+        maxTile = Tiles[new Point(MapX - 1, MapY - 1)].transform.position;
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
         miniMap.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
         //TowerPanel = GameObject.Find("TowerPanel");
         //TowerPanel.SetActive(false);
         TowerMenu = GameObject.Find("TowerPanel");
         TowerMenu.SetActive(false);
+
+		createBoundaryCollisionBoxes ();
     }
 
 	private void PlaceTile(string tileType, int x, int y, Vector3 worldStart){
@@ -89,4 +95,17 @@ public class LevelManager : Singleton<LevelManager> {
         string data = bindData.text.Replace(Environment.NewLine, string.Empty);
         return data.Split('-');
     }
+
+	private void createBoundaryCollisionBoxes() {
+		List<Vector2> edgePoints = new List<Vector2> ();
+		edgePoints.Add (new Vector2 (worldStart.x, worldStart.y));
+		edgePoints.Add (new Vector2 (worldStart.x + (TileSize * MapX), worldStart.y));
+		edgePoints.Add (new Vector2 (worldStart.x + (TileSize * MapX), worldStart.y - (TileSize * (MapY - 1))));
+		edgePoints.Add (new Vector2 (worldStart.x , worldStart.y - (TileSize * (MapY - 1))));
+		edgePoints.Add (new Vector2 (worldStart.x, worldStart.y));
+
+		print ("Creating collisionboxes");
+		map.GetComponent<EdgeCollider2D>().points = edgePoints.ToArray ();
+
+	}
 }
