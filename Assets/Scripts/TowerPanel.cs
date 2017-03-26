@@ -9,9 +9,16 @@ public class TowerPanel : MonoBehaviour {
     private int selection = 0;
     private int newIdx = 0;
 
+    public int numOptions() {
+        return towers.Length;
+    }
 
     public void menuSelection(int index) {
         selection = index;
+
+        for (int i = 0; i < towers.Length; i++) {
+            towers[i].highlighted(i == selection);
+        }
     }
 
     /*
