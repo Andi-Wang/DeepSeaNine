@@ -1275,7 +1275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4de695963435814080c185bcb908e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pirateShipPrefab: {fileID: 1842755781405844, guid: 15d199d5e02ccd44393cc389996c21b0,
+  pirateShipPrefab: {fileID: 1842755781405844, guid: 27f2a10ccea3ea2418f0b06e1c075254,
     type: 2}
 --- !u!4 &1438037215
 Transform:
