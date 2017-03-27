@@ -6,10 +6,15 @@ using UnityStandardAssets._2D;
 
 public class TileScript : MonoBehaviour {
 
+	public GameObject HookPrefab;
+
     public Point GridPosition { get; private set; }
     public string Type { get; private set; }
     public bool IsTower { get; private set; }
+
     private bool isAmmo = false;
+    private static int hookCount = 0;
+
     // Use this for initialization
     void Start() {
         IsTower = false;
@@ -26,34 +31,44 @@ public class TileScript : MonoBehaviour {
         this.Type = "";
         this.IsTower = false;
 
-        if (type == 0){
+		if (type == 0) {
 
-            this.Type = "water";
+			this.Type = "water";
+			LevelManager.Instance.WaterTiles.Add (gridPos);
 
-        }else if (type == 1) {
+		} else if (type == 1) {
      
-            this.Type = "wall";
+			this.Type = "wall";
 
-        }else if (type == 2) {
+		} else if (type == 2) {
 
-            this.Type = "dock";
+			this.Type = "dock";
 
-        }else if (type == 3) {
+		} else if (type == 3) {
 
-            this.Type = "path";
+			this.Type = "path";
 
-        }else if (type == 4) {
+		} else if (type == 4) {
 
-            this.Type = "room";
+			this.Type = "room";
 
-        }
+		} else if (type == 5) {
+			
+			this.Type = "hook";
+			// Create a new hook object for the tile.
+			HookScript hs = Instantiate(HookPrefab).GetComponentInChildren<HookScript>();
+			hs.setup (hookCount, worldPos, this.transform);
+			hookCount++;
+		}
         transform.SetParent(parent);
         LevelManager.Instance.Tiles.Add(gridPos, this);
+
 		if (this.Type == "water") {
 			LevelManager.Instance.WaterTiles.Add(gridPos);
 		}else if(this.Type == "room") {
             LevelManager.Instance.roomTiles.Add(gridPos);
         }
+
     }
 
    /* private void OnMouseEnter() {
