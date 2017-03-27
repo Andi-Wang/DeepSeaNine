@@ -60,7 +60,6 @@ public class TileScript : MonoBehaviour {
 			hs.setup (hookCount, worldPos, this.transform);
 			hookCount++;
 		} else if (type == 6) {
-            Debug.Log("hello bitches");
             this.Type = "goal";
         }
         transform.SetParent(parent);

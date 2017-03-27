@@ -35,7 +35,7 @@ public class TowerProjectile : MonoBehaviour {
 
         Point current = new Point(x, y);
         //Debug.Log("(" + lm.worldStart.x + "," + lm.worldStart.y + ")");
-        Debug.Log("(" + pos.x + "," + pos.y + ")");
+        //Debug.Log("(" + pos.x + "," + pos.y + ")");
         //Debug.Log("(" + current.X + "," + current.Y + ")");
 
         TileScript tile = lm.Tiles[current]; 
