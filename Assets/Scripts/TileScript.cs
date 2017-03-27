@@ -9,11 +9,10 @@ public class TileScript : MonoBehaviour {
     public Point GridPosition { get; private set; }
     public string Type { get; private set; }
     public bool IsTower { get; private set; }
-    private bool isAmmo;
+    private bool isAmmo = false;
     // Use this for initialization
     void Start() {
         IsTower = false;
-        isAmmo = true;
 	}
 	
 	// Update is called once per frame
@@ -122,12 +121,12 @@ public class TileScript : MonoBehaviour {
 
     public void PlaceAmmo() {
         GameObject ammo = (GameObject)Instantiate(LevelManager.Instance.AmmoBox, transform.position, Quaternion.identity);
-        ammo.transform.SetParent(transform);
-        isAmmo = true;
+        //ammo.transform.SetParent(transform);
+        this.isAmmo = true;
     }
 
     public void updateUsables(int playerIdx) {
-        if (isAmmo) {
+        if (this.isAmmo) {
             PlayerManager.Instance.playerArray[playerIdx - 1].Ammo = PlayerManager.Instance.playerArray[playerIdx - 1].ClipSize * 10;
             PlayerManager.Instance.playerArray[playerIdx - 1].AmmoInClip = PlayerManager.Instance.playerArray[playerIdx - 1].ClipSize;
         }
