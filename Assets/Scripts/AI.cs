@@ -5,8 +5,6 @@ using UnityEngine;
 public class AI : MonoBehaviour {
 
 	public static List<Vector3> aStar(Point start, Point end, string type) {
-		print ("start:" + start);
-		print ("end:" + end);
 		Dictionary<Point, NodeInfo> open = new Dictionary<Point, NodeInfo>();
 		Dictionary<Point, NodeInfo> closed = new Dictionary<Point, NodeInfo>();
 		Vector3[] directions = new Vector3[]{ Vector3.up, Vector3.down, Vector3.left, Vector3.right };
@@ -19,13 +17,18 @@ public class AI : MonoBehaviour {
 			KeyValuePair<Point, NodeInfo> q = new KeyValuePair<Point, NodeInfo>(); // RHS will get thrown away
 			int minF = int.MaxValue;
 
-			// pop entry with smallest f value
+			// pop an entry with smallest f value
+			List<KeyValuePair<Point, NodeInfo>> qCandidates = new List<KeyValuePair<Point, NodeInfo>>();
 			foreach (KeyValuePair<Point, NodeInfo> entry in open) {
-				if (entry.Value.f() < minF) {
-					q = new KeyValuePair<Point, NodeInfo> (entry.Key, entry.Value);
+				if (entry.Value.f () < minF) {
+					qCandidates = new List<KeyValuePair<Point, NodeInfo>> ();
+					qCandidates.Add(new KeyValuePair<Point, NodeInfo> (entry.Key, entry.Value));
 					minF = entry.Value.f ();
+				} else if (entry.Value.f () == minF) {
+					qCandidates.Add(new KeyValuePair<Point, NodeInfo> (entry.Key, entry.Value));
 				}
 			}
+			q = qCandidates[(int)System.Math.Floor ((float)UnityEngine.Random.Range (0, qCandidates.Count))];
 			open.Remove (q.Key);
 
 			// iterate through each child
