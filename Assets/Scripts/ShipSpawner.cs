@@ -25,11 +25,16 @@ public class ShipSpawner : Singleton<ShipSpawner> {
 	}
 	
 	void Update () {
-		spawnTimer++;
-		if (spawnTimer > spawnFrequency) {
-			spawnTimer = 0;
-			shipSpawn();
-		}
+
+        if (Time.timeScale == 1)
+        {
+            spawnTimer++;
+            if (spawnTimer > spawnFrequency)
+            {
+                spawnTimer = 0;
+                shipSpawn();
+            }
+        }
 	}
 
 	// spawns ship in random location from list of valid spawn points

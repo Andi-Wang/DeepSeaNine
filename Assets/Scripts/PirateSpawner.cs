@@ -22,7 +22,7 @@ public class PirateSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (setUp) {
+		if (setUp && Time.timeScale == 1) {
 			spawnTimer++;
 			if (spawnTimer > spawnFrequency && piratesRemaining > 0) {
 				spawnTimer = 0;

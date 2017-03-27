@@ -22,20 +22,27 @@ public class Pirate : Movable {
 	
 	// Update is called once per frame
 	void Update () {
-		// if the pirate has arrived at the bubbleactor
-		if (movementCount >= directions.Count) {
-            LevelManager.Instance.damageHealth(10f);
-            Destroy(gameObject);
-		// otherwise
-		} else {
-			movementTimer++;
-			if (movementTimer > movementFrequency) {
-				movementTimer = 0;
-				//facing = directions [movementCount]; causes silly rotation for now
-				moveInDirection (directions [movementCount]);
-				movementCount++;
-			}
-		}
+        // if the pirate has arrived at the bubbleactor
+        if (Time.timeScale == 1)
+        {
+            if (movementCount >= directions.Count)
+            {
+                LevelManager.Instance.damageHealth(10f);
+                Destroy(gameObject);
+                // otherwise
+            }
+            else
+            {
+                movementTimer++;
+                if (movementTimer > movementFrequency)
+                {
+                    movementTimer = 0;
+                    //facing = directions [movementCount]; causes silly rotation for now
+                    moveInDirection(directions[movementCount]);
+                    movementCount++;
+                }
+            }
+        }
 	}
 
 	public void setupPirate(Point start) {

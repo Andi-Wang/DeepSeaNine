@@ -27,24 +27,32 @@ public class PirateShip : Movable {
 	}
 
 	void Update() {
-		// if the ship has arrived at a dock
-		if (movementCount >= directions.Count) {
-			if (!setupPirateSpawner) {
-				PirateSpawner pirateSpawner = Instantiate (pirateSpawnerPrefab).GetComponent<PirateSpawner> ();
-				pirateSpawner.setUpSpawner (destination, this);
-				setupPirateSpawner = true;
-			}
+        // if the ship has arrived at a dock
+        if (Time.timeScale == 1)
+        {
+            if (movementCount >= directions.Count)
+            {
+                if (!setupPirateSpawner)
+                {
+                    PirateSpawner pirateSpawner = Instantiate(pirateSpawnerPrefab).GetComponent<PirateSpawner>();
+                    pirateSpawner.setUpSpawner(destination, this);
+                    setupPirateSpawner = true;
+                }
 
-		// otherwise, drive to a dock
-		} else {
-			movementTimer++;
-			if (movementTimer > movementFrequency) {
-				movementTimer = 0;
-				facing = directions [movementCount];
-				moveInDirection (directions [movementCount]);
-				movementCount++;
-			}
-		}
+                // otherwise, drive to a dock
+            }
+            else
+            {
+                movementTimer++;
+                if (movementTimer > movementFrequency)
+                {
+                    movementTimer = 0;
+                    facing = directions[movementCount];
+                    moveInDirection(directions[movementCount]);
+                    movementCount++;
+                }
+            }
+        }
 	}
 
 	public void setupShip(Point start, Point end) {
