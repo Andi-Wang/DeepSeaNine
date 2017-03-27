@@ -11,6 +11,8 @@ public class TileScript : MonoBehaviour {
     public string Type { get; private set; }
     public bool IsTower { get; private set; }
 
+	private static int hookCount = 0;
+
     private Color startColor;
     // Use this for initialization
     void Start() {
@@ -53,8 +55,9 @@ public class TileScript : MonoBehaviour {
 			
 			this.Type = "hook";
 			// Create a new hook object for the tile.
-			HookScript hs = Instantiate(HookPrefab).GetComponent<HookScript>();
-			hs.setup (worldPos, this.transform);
+			HookScript hs = Instantiate(HookPrefab).GetComponentInChildren<HookScript>();
+			hs.setup (hookCount, worldPos, this.transform);
+			hookCount++;
 		}
         transform.SetParent(parent);
         LevelManager.Instance.Tiles.Add(gridPos, this);
