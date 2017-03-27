@@ -1471,7 +1471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1220a53b076bc342972f576e0fb4679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 1824444171471442, guid: 2ade2a2269421d94c924f9658e46d670,
+  towerPrefab: {fileID: 1809017896633340, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d,
     type: 2}
   selectionBox: {fileID: 2082172448}
 --- !u!114 &1408111284
@@ -1547,7 +1547,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: df3583ba275e54443a217e9f09bb398c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c328eab4c2e41e4c8f38002e43c3438, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1644,6 +1644,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1441130627
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4439896738868250, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439896738868250, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439896738868250, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439896738868250, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439896738868250, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439896738868250, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439896738868250, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439896738868250, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1490152115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,7 +1979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1220a53b076bc342972f576e0fb4679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 1824444171471442, guid: 2ade2a2269421d94c924f9658e46d670,
+  towerPrefab: {fileID: 1809017896633340, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d,
     type: 2}
   selectionBox: {fileID: 2065835426}
 --- !u!114 &1732235912
@@ -2013,7 +2055,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: df3583ba275e54443a217e9f09bb398c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c328eab4c2e41e4c8f38002e43c3438, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
