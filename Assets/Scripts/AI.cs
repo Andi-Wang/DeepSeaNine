@@ -5,9 +5,8 @@ using UnityEngine;
 public class AI : MonoBehaviour {
 
 	public static List<Vector3> aStar(Point start, Point end, string type) {
-
-		SortedDictionary<Point, NodeInfo> open = new SortedDictionary<Point, NodeInfo>();
-		SortedDictionary<Point, NodeInfo> closed = new SortedDictionary<Point, NodeInfo>();
+		Dictionary<Point, NodeInfo> open = new Dictionary<Point, NodeInfo>();
+		Dictionary<Point, NodeInfo> closed = new Dictionary<Point, NodeInfo>();
 		Vector3[] directions = new Vector3[]{ Vector3.up, Vector3.down, Vector3.left, Vector3.right };
 
 		// add start to open
@@ -21,7 +20,8 @@ public class AI : MonoBehaviour {
 			// pop entry with smallest f value
 			foreach (KeyValuePair<Point, NodeInfo> entry in open) {
 				if (entry.Value.f() < minF) {
-					q = entry;
+					q = new KeyValuePair<Point, NodeInfo> (entry.Key, entry.Value);
+					minF = entry.Value.f ();
 				}
 			}
 			open.Remove (q.Key);
@@ -32,6 +32,11 @@ public class AI : MonoBehaviour {
 				int successorG = q.Value.g + 1;
 				int successorH = Point.absoluteDistance (successorPoint, end);
 				NodeInfo successorNodeInfo = new NodeInfo(successorPoint, q.Value, successorG, successorH);
+
+				// skip tiles not on board
+				if (!LevelManager.Instance.Tiles.ContainsKey (successorPoint)) {
+					continue;
+				}
 
 				// did we find the end?
 				if (successorPoint == end) {
@@ -44,6 +49,7 @@ public class AI : MonoBehaviour {
 						n = n.parent;
 					}
 
+					print (moves);
 					return moves;
 				}
 

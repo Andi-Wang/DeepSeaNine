@@ -73,5 +73,10 @@ CAUSED STACK OVERFLOW:
 	public static int absoluteDistance(Point a, Point b){
 		return absoluteX(a,b) + absoluteY(a,b);
 	}
+
+	public override string ToString ()
+	{
+		return string.Format ("[Point: X={0}, Y={1}]", X, Y);
+	}
     
 }

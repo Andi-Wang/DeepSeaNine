@@ -38,7 +38,7 @@ public class ShipSpawner : Singleton<ShipSpawner> {
 		PirateShip ship = Instantiate (pirateShipPrefab).GetComponent<PirateShip> ();
 
 		Point destination;
-		ship.setupShip (spawnPoint);//, destination);
+		ship.setupShip (spawnPoint, new Point(22,6));
 	}
 
 }
