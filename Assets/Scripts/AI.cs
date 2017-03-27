@@ -48,8 +48,6 @@ public class AI : MonoBehaviour {
 						moves.Insert (0, n.parent.point.getDirectionTo(n.point));
 						n = n.parent;
 					}
-
-					print (moves);
 					return moves;
 				}
 
