@@ -744,6 +744,12 @@ Prefab:
       propertyPath: BubbleLayer
       value: 
       objectReference: {fileID: 2136220409}
+    - target: {fileID: 114892877661586566, guid: 29f80a97554104e4d83e567805e8347f,
+        type: 2}
+      propertyPath: TreasurePrefab
+      value: 
+      objectReference: {fileID: 1926385468329934, guid: 0444d51736f4642208e8fd632bdee979,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 29f80a97554104e4d83e567805e8347f, type: 2}
   m_IsPrefabParent: 0
@@ -803,7 +809,7 @@ Prefab:
     - target: {fileID: 224883541272697416, guid: eda36b726b8873d448e3af384551c59e,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 575.5
+      value: 363.5
       objectReference: {fileID: 0}
     - target: {fileID: 224883541272697416, guid: eda36b726b8873d448e3af384551c59e,
         type: 2}
@@ -833,7 +839,7 @@ Prefab:
     - target: {fileID: 224645516754692988, guid: eda36b726b8873d448e3af384551c59e,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 775.5
+      value: 563.5
       objectReference: {fileID: 0}
     - target: {fileID: 224645516754692988, guid: eda36b726b8873d448e3af384551c59e,
         type: 2}
