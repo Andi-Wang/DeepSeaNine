@@ -18,15 +18,18 @@ public class PirateShip : Movable {
 	}
 
 	void Update() {
-		movementTimer++;
-		if (movementTimer > movementFrequency) {
-			movementTimer = 0;
-			moveInDirection (directions [movementCount]);
-			movementCount++;
+		// if the ship has arrived at a dock
+		if (movementCount >= directions.Count) {
 
-			// if the ship has arrived at a dock
-			if (movementCount >= directions.Count) {
 
+		// otherwise
+		} else {
+			movementTimer++;
+			if (movementTimer > movementFrequency) {
+				movementTimer = 0;
+				setFacing (directions [movementCount]);
+				moveInDirection (directions [movementCount]);
+				movementCount++;
 			}
 		}
 	}
@@ -37,5 +40,10 @@ public class PirateShip : Movable {
 		moveSprite(location);
 		directions = AI.aStar (start, end, "water");
 		movementCount = 0;
+	}
+
+	private void setFacing(Vector3 f){
+		facing = f;
+
 	}
 }
