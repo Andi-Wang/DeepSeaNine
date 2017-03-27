@@ -552,7 +552,7 @@ MonoBehaviour:
   - {fileID: 1174981208384668, guid: 7b08a7b6de4dc6b4cbb6e5e40c69ba25, type: 2}
   - {fileID: 1523408732630482, guid: cab349252bba373419eeb9cd6d61ef2a, type: 2}
   - {fileID: 1839827590387694, guid: ffd3f96366bde4bdcb4b5eafdbed56d9, type: 2}
-  - {fileID: 1839827590387694, guid: ffd3f96366bde4bdcb4b5eafdbed56d9, type: 2}
+  - {fileID: 1231883656284350, guid: 55246571849947d428532612375bfb60, type: 2}
   cameraMovement: {fileID: 2071841114}
   map: {fileID: 1380953500}
   miniMap: {fileID: 1156292401}
