@@ -8,20 +8,20 @@ public class ShipSpawner : Singleton<ShipSpawner> {
 	public GameObject pirateShipPrefab;
 
 	private List<Point> spawnPoints;
+	private List<Point> destinations;
 	private float spawnFrequency { get; set; } // number of frames
 	private float spawnTimer;
 
-	private List<Point> dockPoints;
 	private Dictionary<Point, bool> destinationClaimed; 
 
 	public Dictionary<Point, PirateShip> ships;
 
 	// Use this for initialization
 	void Start () {
-		spawnPoints = new List<Point> (){new Point(1,1) }; //TODO: paremeter
+		spawnPoints = LevelManager.Instance.getPerimeterPoints(); //new List<Point> (){ new Point (0, 0) };
+		destinations = LevelManager.Instance.getPointsByType ("dock");
 		spawnFrequency = 600;
 		spawnTimer = 600;
-		dockPoints = LevelManager.Instance.getPointsByType ("dock");
 	}
 	
 	void Update () {
@@ -34,11 +34,14 @@ public class ShipSpawner : Singleton<ShipSpawner> {
 
 	// spawns ship in random location from list of valid spawn points
 	private void shipSpawn(){
-		Point spawnPoint = spawnPoints [(int)System.Math.Floor ((float)UnityEngine.Random.Range (0, spawnPoints.Count))];
-		PirateShip ship = Instantiate (pirateShipPrefab).GetComponent<PirateShip> ();
+		int randomNumber = (int)System.Math.Floor ((float)UnityEngine.Random.Range (0, spawnPoints.Count));
+		Point spawnPoint = spawnPoints [randomNumber];
+	
+		randomNumber = (int)System.Math.Floor ((float)UnityEngine.Random.Range (0, destinations.Count));
+		Point destination = destinations[randomNumber];
 
-		Point destination;
-		ship.setupShip (spawnPoint, new Point(22,6));
+		PirateShip ship = Instantiate (pirateShipPrefab).GetComponent<PirateShip> ();
+		ship.setupShip (spawnPoint, destination);
 	}
 
 }

@@ -12,22 +12,22 @@ public class PirateSpawner : MonoBehaviour {
 	private float spawnTimer;
 	private int piratesRemaining;
 
+	private bool setUp = false;
 
 	// Use this for initialization
 	void Start () {
-		spawnPoint = new Point(22, 7); //TODO: get from ship
-		spawnFrequency = 600;
-		spawnTimer = 600;
-		piratesRemaining = 6;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		spawnTimer++;
-		if (spawnTimer > spawnFrequency && piratesRemaining > 0) {
-			spawnTimer = 0;
-			pirateSpawn();
-			piratesRemaining--;
+		if (setUp) {
+			spawnTimer++;
+			if (spawnTimer > spawnFrequency && piratesRemaining > 0) {
+				spawnTimer = 0;
+				pirateSpawn ();
+				piratesRemaining--;
+			}
 		}
 	}
 
@@ -36,4 +36,15 @@ public class PirateSpawner : MonoBehaviour {
 		Pirate pirate = Instantiate (piratePrefab).GetComponent<Pirate> ();
 		pirate.setupPirate (spawnPoint);
 	}
+
+	// sets up parameters so that spawner can start spawning
+	// called from pirate ship
+	public void setUpSpawner(Point p){
+		spawnPoint = p;
+		spawnFrequency = 600;
+		spawnTimer = 600;
+		piratesRemaining = 6;
+		setUp = true;
+	}
+
 }

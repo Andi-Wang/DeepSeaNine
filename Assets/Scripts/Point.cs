@@ -50,13 +50,15 @@ CAUSED STACK OVERFLOW:
 
 	// returns direction to point if they are adjacent
 	public Vector3 getDirectionTo(Point p) {
-		if (absoluteX (this, p) == 1) {
+		int xDir = p.X - this.X;
+		int yDir = p.Y - this.Y;
+		if (xDir  == 1) {
 			return Vector3.right;
-		} else if (absoluteX (this, p) == -1) {
+		} else if (xDir == -1) {
 			return Vector3.left;
-		} else if (absoluteY (this, p) == -1) {
+		} else if (yDir == -1) {
 			return Vector3.up;
-		} else if (absoluteY (this, p) == 1) {
+		} else if (yDir == 1) {
 			return Vector3.down;
 		}
 		return Vector3.zero;

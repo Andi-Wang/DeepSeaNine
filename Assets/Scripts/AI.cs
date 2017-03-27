@@ -5,6 +5,8 @@ using UnityEngine;
 public class AI : MonoBehaviour {
 
 	public static List<Vector3> aStar(Point start, Point end, string type) {
+		print ("start:" + start);
+		print ("end:" + end);
 		Dictionary<Point, NodeInfo> open = new Dictionary<Point, NodeInfo>();
 		Dictionary<Point, NodeInfo> closed = new Dictionary<Point, NodeInfo>();
 		Vector3[] directions = new Vector3[]{ Vector3.up, Vector3.down, Vector3.left, Vector3.right };
@@ -45,7 +47,8 @@ public class AI : MonoBehaviour {
 					NodeInfo n = successorNodeInfo;
 
 					while (n.parent != null) {
-						moves.Insert (0, n.parent.point.getDirectionTo(n.point));
+						Vector3 dir = n.parent.point.getDirectionTo (n.point);
+						moves.Insert (0, dir);
 						n = n.parent;
 					}
 					return moves;

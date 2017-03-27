@@ -94,4 +94,23 @@ public class LevelManager : Singleton<LevelManager> {
 		}
 		return typePoints;
 	}
+
+	public List<Point> getPerimeterPoints(){
+		List<Point> perimeterTiles = new List<Point> ();
+		int maxX = 0; //because hack
+		int maxY = 0;
+		foreach (Point tile in Tiles.Keys) {
+			if (tile.X == 0 || tile.Y == 0) {
+				perimeterTiles.Add (tile);
+			}
+			if (tile.X > maxX){ maxX = tile.X;}
+			if (tile.Y > maxY) {maxY = tile.Y;}
+		}
+		foreach (Point tile in Tiles.Keys) {
+			if (tile.X == maxX || tile.Y == maxY) {
+				perimeterTiles.Add (tile);
+			}
+		}
+		return perimeterTiles;
+	}
 }

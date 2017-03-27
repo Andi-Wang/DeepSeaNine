@@ -13,6 +13,8 @@ public class PirateShip : Movable {
 	public GameObject pirateSpawnerPrefab;
 	bool setupPirateSpawner;
 
+	Point destination; // used to pass to pirate spawner
+
 	// Use this for initialization
 	void Start () {
 		moveSprite(location);
@@ -27,6 +29,7 @@ public class PirateShip : Movable {
 		if (movementCount >= directions.Count) {
 			if (!setupPirateSpawner) {
 				PirateSpawner pirateSpawner = Instantiate (pirateSpawnerPrefab).GetComponent<PirateSpawner> ();
+				pirateSpawner.setUpSpawner (destination);
 				setupPirateSpawner = true;
 			}
 
@@ -44,6 +47,7 @@ public class PirateShip : Movable {
 
 	public void setupShip(Point start, Point end) {
 		location = start;
+		destination = end;
 		facing = Vector3.right;
 		moveSprite(location);
 		directions = AI.aStar (start, end, "water");
