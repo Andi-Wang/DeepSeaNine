@@ -24,7 +24,8 @@ public class Pirate : Movable {
 	void Update () {
 		// if the pirate has arrived at the bubbleactor
 		if (movementCount >= directions.Count) {
-		
+            LevelManager.Instance.damageHealth(10f);
+            Destroy(gameObject);
 		// otherwise
 		} else {
 			movementTimer++;
@@ -41,7 +42,7 @@ public class Pirate : Movable {
 		location = start;
 		facing = Vector3.right;
 		moveSprite(location);
-		directions = AI.aStar (start, new Point(22,17), "path");
+		directions = AI.aStar (start, LevelManager.Instance.getPointsByType("goal") , "path");
 		movementCount = 0;
 	}
 }

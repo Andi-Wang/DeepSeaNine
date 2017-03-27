@@ -47,14 +47,14 @@ public class LevelManager : Singleton<LevelManager> {
 
     public GameObject HealthBar { get; set; }
 
-    private float health = 100;
+    private float health = 200;
 
     private float counter;
 
     private GameObject endPanel;
 
     private float healthInc = 1;
-    private float totalHealth = 100;
+    private float totalHealth = 200;
 
 	// Use this for initialization
 	void Start() {
@@ -173,6 +173,21 @@ public class LevelManager : Singleton<LevelManager> {
         }
         HealthBar.transform.FindChild("HealthBackgroundImage").FindChild("HealthBarImage").GetComponent<Image>().fillAmount = (health/totalHealth);
         HealthBar.transform.FindChild("HealthNum").GetComponent<Text>().text = health.ToString();
+    }
+
+    public void damageHealth(float damage) {
+        health -= damage;
+        if (health <= 0) {
+            health = 0;
+            HealthBar.transform.FindChild("HealthBackgroundImage").FindChild("HealthBarImage").GetComponent<Image>().fillAmount = (health / totalHealth);
+            HealthBar.transform.FindChild("HealthNum").GetComponent<Text>().text = health.ToString();
+            PauseGame.Instance.Pause();
+            endPanel.SetActive(true);
+        }
+        else {
+            HealthBar.transform.FindChild("HealthBackgroundImage").FindChild("HealthBarImage").GetComponent<Image>().fillAmount = (health / totalHealth);
+            HealthBar.transform.FindChild("HealthNum").GetComponent<Text>().text = health.ToString();
+        }
     }
 
     public List<Point> getPointsByType(String type) {
