@@ -6,9 +6,22 @@ public class TowerPanel : MonoBehaviour {
 
     [SerializeField]
     private TowerBtn[] towers;
-    private int selectedIdx = 0;
+    private int selection = 0;
     private int newIdx = 0;
 
+    public int numOptions() {
+        return towers.Length;
+    }
+
+    public void menuSelection(int index) {
+        selection = index;
+
+        for (int i = 0; i < towers.Length; i++) {
+            towers[i].highlighted(i == selection);
+        }
+    }
+
+    /*
     int menuSelection(TowerBtn[] towers, int selectedItem, string direction)
     {
 
@@ -37,61 +50,66 @@ public class TowerPanel : MonoBehaviour {
         }
 
         return selectedItem;
-    }
+    }*/
 
     // Use this for initialization
     void Start () {
-        towers[selectedIdx].highlighted(true);
+        towers[selection].highlighted(true);
     }
 	
 	// Update is called once per frame
 	void Update () {
+        /*
 		if (Input.GetKeyDown("up"))
         {
-            newIdx = menuSelection(towers, selectedIdx, "up");
+            newIdx = menuSelection(towers, selection, "up");
         }
         if (Input.GetKeyDown("down"))
         {
-            newIdx = menuSelection(towers, selectedIdx, "down");
+            newIdx = menuSelection(towers, selection, "down");
         }
 
-        if (newIdx != selectedIdx)
+        if (newIdx != selection)
         {
-            Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selectedIdx);
-            towers[selectedIdx].highlighted(false);
-            selectedIdx = newIdx;
-            towers[selectedIdx].highlighted(true);
+            Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selection);
+            towers[selection].highlighted(false);
+            selection = newIdx;
+            towers[selection].highlighted(true);
         }
 
         if (Input.GetKeyDown("space"))
         {
             handleSelection();
-        }
+        }*/
     }
 
-    void handleSelection()
+    public void handleSelection(int playerNumber)
     {
-        GUI.FocusControl(towers[selectedIdx].name);
+        /*
+        GUI.FocusControl(towers[selection].name);
 
-        switch (selectedIdx)
+        switch (selection)
         {
             case 0:
-                Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selectedIdx);
-                GameManager.Instance.PickTower(towers[selectedIdx]);
+                Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selection);
+                GameManager.Instance.PickTower(towers[selection]);
                 break;
             case 1:
-                Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selectedIdx);
-                GameManager.Instance.PickTower(towers[selectedIdx]);
+                Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selection);
+                GameManager.Instance.PickTower(towers[selection]);
                 break;
             case 2:
-                Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selectedIdx);
+                Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selection);
                 break;
             case 3:
-                Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selectedIdx);
+                Debug.Log("Selected name: " + GUI.GetNameOfFocusedControl() + " / id: " + selection);
                 break;
             default:
                 Debug.Log("None of the above selected..");
                 break;
         }
+        */
+
+        GameManager.Instance.PickTower(towers[selection], playerNumber);
     }
 }

@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityStandardAssets._2D;
 
 public class TileScript : MonoBehaviour {
+
+	public GameObject HookPrefab;
 
     public Point GridPosition { get; private set; }
     public string Type { get; private set; }
     public bool IsTower { get; private set; }
 
-    private Color startColor;
+    private bool isAmmo = false;
+    private static int hookCount = 0;
+
     // Use this for initialization
     void Start() {
-		
+        IsTower = false;
 	}
 	
 	// Update is called once per frame
@@ -21,36 +26,51 @@ public class TileScript : MonoBehaviour {
 	}
 
     public void Setup(Point gridPos, Vector3 worldPos, int type, Transform parent) {
-
         this.GridPosition = gridPos;
         transform.position = worldPos;
         this.Type = "";
         this.IsTower = false;
 
-        if (type == 0){
+		if (type == 0) {
 
-            this.Type = "water";
+			this.Type = "water";
+			LevelManager.Instance.WaterTiles.Add (gridPos);
 
-        }else if (type == 1) {
+		} else if (type == 1) {
      
-            this.Type = "wall";
+			this.Type = "wall";
 
-        }else if (type == 2) {
+		} else if (type == 2) {
 
-            this.Type = "dock";
+			this.Type = "dock";
 
-        }else if (type == 3) {
+		} else if (type == 3) {
 
-            this.Type = "path";
+			this.Type = "path";
 
-        }else if (type == 4) {
+		} else if (type == 4) {
 
-            this.Type = "room";
+			this.Type = "room";
 
+		} else if (type == 5) {
+			
+			this.Type = "hook";
+			// Create a new hook object for the tile.
+			HookScript hs = Instantiate(HookPrefab).GetComponentInChildren<HookScript>();
+			hs.setup (hookCount, worldPos, this.transform);
+			hookCount++;
+		} else if (type == 6) {
+            this.Type = "goal";
         }
         transform.SetParent(parent);
         LevelManager.Instance.Tiles.Add(gridPos, this);
-        startColor = this.GetComponent<Renderer>().material.color;
+
+		if (this.Type == "water") {
+			LevelManager.Instance.WaterTiles.Add(gridPos);
+		}else if(this.Type == "room") {
+            LevelManager.Instance.roomTiles.Add(gridPos);
+        }
+
     }
 
    /* private void OnMouseEnter() {
@@ -62,22 +82,22 @@ public class TileScript : MonoBehaviour {
 
     }*/
 
-    private void OnMouseExit() {
+    /*private void OnMouseExit() {
 
         if (this.Type == "wall") {
             this.GetComponent<Renderer>().material.color = startColor;
         }
 
-    }
+    }*/
 
-    public void TowerMenu(Vector3 loc) {
-        if (this.Type == "wall") {
-            GameObject towerMenu = LevelManager.Instance.TowerMenu;
-            towerMenu.GetComponent<RectTransform>().transform.position = loc;
-            towerMenu.SetActive(true);
+    public void setCurrentTile(int playerNumber) {
+        //if (this.Type == "wall") {
+            //GameObject towerMenu = LevelManager.Instance.TowerMenu;
+            //towerMenu.GetComponent<RectTransform>().transform.position = loc;
+            //towerMenu.SetActive(true);
             //LevelManager.Instance.TowerPanel.SetActive(true);
-            GameManager.Instance.CurrentTile = this;
-        }
+        GameManager.Instance.CurrentTile[playerNumber - 1] = this;
+        //}
     }
 
     /*private void OnMouseOver() {
@@ -107,11 +127,25 @@ public class TileScript : MonoBehaviour {
         }
     }*/
 
-    public void PlaceTower() {
+    public void PlaceTower(int playerNumber) {
+        if (GameManager.Instance.ClickedBtn[playerNumber - 1] != null && !IsTower) {
+            GameObject tower = (GameObject)Instantiate(GameManager.Instance.ClickedBtn[playerNumber - 1].TowerPrefab, transform.position, Quaternion.identity);
+            tower.transform.SetParent(transform);
+            GameManager.Instance.BuyTower(playerNumber);
+            this.IsTower = true;
+        }
+    }
 
-        GameObject tower = (GameObject)Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
-        tower.transform.SetParent(transform);
-        GameManager.Instance.BuyTower();
-        this.IsTower = true;
+    public void PlaceAmmo() {
+        GameObject ammo = (GameObject)Instantiate(LevelManager.Instance.AmmoBox, transform.position, Quaternion.identity);
+        //ammo.transform.SetParent(transform);
+        this.isAmmo = true;
+    }
+
+    public void updateUsables(int playerIdx) {
+        if (this.isAmmo) {
+            PlayerManager.Instance.playerArray[playerIdx - 1].Ammo = PlayerManager.Instance.playerArray[playerIdx - 1].ClipSize * 10;
+            PlayerManager.Instance.playerArray[playerIdx - 1].AmmoInClip = PlayerManager.Instance.playerArray[playerIdx - 1].ClipSize;
+        }
     }
 }

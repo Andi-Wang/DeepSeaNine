@@ -9,6 +9,17 @@ public class Movable : MonoBehaviour {
 
 	protected string[] restrictedTileTypes;
 
+    void Start() {
+        restrictedTileTypes = new string[10];
+    }
+
+
+	//Get the next point in the given direction
+	protected Point getNextPoint(Vector3 facing) {
+		Point next = new Point(location.X + (int)facing.x, location.Y + (int)facing.y);
+		return next;
+	}
+
 	//Move the player in the given direction if the new space is not restricted; call moveSprite() to update the player's facing direction
 	protected void moveInDirection(Vector3 facing) {
 		if(facing != Vector3.zero) {

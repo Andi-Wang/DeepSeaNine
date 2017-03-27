@@ -6,6 +6,8 @@ public class TowerBtn : MonoBehaviour {
 
     [SerializeField]
     private GameObject towerPrefab;
+    [SerializeField]
+    private GameObject selectionBox;
 
     public GameObject TowerPrefab {
         get {
@@ -13,15 +15,11 @@ public class TowerBtn : MonoBehaviour {
         }
     }
 
-    public void highlighted(bool selected)
-    {
-        if (selected)
-        {
-            this.GetComponent<MeshRenderer>().material.shader = Shader.Find("Self-Illumin/Bumped Diffuse");
-        }
-        else
-        {
-            this.GetComponent<MeshRenderer>().material.shader = Shader.Find("Self-Illumin/Diffuse");
+    public void highlighted(bool selected) {
+        if (selected) {
+            selectionBox.SetActive(true);
+        }else {
+            selectionBox.SetActive(false);
         }
     }
 }
