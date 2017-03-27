@@ -30,12 +30,12 @@ public class TowerProjectile : MonoBehaviour {
         // Don't look at this disgusting mess.
         // For some reason our main developer decided to use a float for tile size and
         // 1 pixel is .01 in value. 
-        int x = (int)(System.Math.Abs(pos.x - lm.worldStart.x) / tileSize);
-        int y = (int)(System.Math.Abs(pos.y - lm.worldStart.y) / tileSize);
+        int x = (int)(System.Math.Abs(pos.x - (lm.worldStart.x - tileSize / 2)) / tileSize);
+        int y = (int)(System.Math.Abs(pos.y - (lm.worldStart.y + tileSize / 2)) / tileSize);
 
         Point current = new Point(x, y);
         //Debug.Log("(" + lm.worldStart.x + "," + lm.worldStart.y + ")");
-        //Debug.Log("(" + pos.x + "," + pos.y + ")");
+        Debug.Log("(" + pos.x + "," + pos.y + ")");
         //Debug.Log("(" + current.X + "," + current.Y + ")");
 
         TileScript tile = lm.Tiles[current]; 
