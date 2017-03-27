@@ -27,7 +27,7 @@ public class Pirate : Movable {
 			movementTimer++;
 			if (movementTimer > movementFrequency) {
 				movementTimer = 0;
-				facing = directions [movementCount];
+				//facing = directions [movementCount]; causes silly rotation for now
 				moveInDirection (directions [movementCount]);
 				movementCount++;
 			}

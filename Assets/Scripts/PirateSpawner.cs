@@ -11,6 +11,7 @@ public class PirateSpawner : MonoBehaviour {
 	private float spawnFrequency { get; set; } // number of frames
 	private float spawnTimer;
 	private int piratesRemaining;
+	private PirateShip pirateShip;
 
 	private bool setUp = false;
 
@@ -27,6 +28,11 @@ public class PirateSpawner : MonoBehaviour {
 				spawnTimer = 0;
 				pirateSpawn ();
 				piratesRemaining--;
+
+				// destroy ship when no pirates remain
+				if (piratesRemaining <= 0) {
+					Destroy (pirateShip.gameObject);
+				}
 			}
 		}
 	}
@@ -39,11 +45,12 @@ public class PirateSpawner : MonoBehaviour {
 
 	// sets up parameters so that spawner can start spawning
 	// called from pirate ship
-	public void setUpSpawner(Point p){
+	public void setUpSpawner(Point p, PirateShip ship){
 		spawnPoint = p;
+		pirateShip = ship;
 		spawnFrequency = 600;
 		spawnTimer = 600;
-		piratesRemaining = 6;
+		piratesRemaining = 4;
 		setUp = true;
 	}
 

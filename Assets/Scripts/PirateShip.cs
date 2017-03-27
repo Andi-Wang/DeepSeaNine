@@ -29,7 +29,7 @@ public class PirateShip : Movable {
 		if (movementCount >= directions.Count) {
 			if (!setupPirateSpawner) {
 				PirateSpawner pirateSpawner = Instantiate (pirateSpawnerPrefab).GetComponent<PirateSpawner> ();
-				pirateSpawner.setUpSpawner (destination);
+				pirateSpawner.setUpSpawner (destination, this);
 				setupPirateSpawner = true;
 			}
 
