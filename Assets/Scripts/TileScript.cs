@@ -59,7 +59,10 @@ public class TileScript : MonoBehaviour {
 			HookScript hs = Instantiate(HookPrefab).GetComponentInChildren<HookScript>();
 			hs.setup (hookCount, worldPos, this.transform);
 			hookCount++;
-		}
+		} else if (type == 6) {
+            Debug.Log("hello bitches");
+            this.Type = "goal";
+        }
         transform.SetParent(parent);
         LevelManager.Instance.Tiles.Add(gridPos, this);
 
