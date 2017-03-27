@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityStandardAssets._2D;
+using UnityEngine.UI;
 
 public class LevelManager : Singleton<LevelManager> {
 
@@ -43,7 +45,11 @@ public class LevelManager : Singleton<LevelManager> {
 
     public Vector3 worldStart { get; private set; }
 
+    public GameObject HealthBar { get; set; }
 
+    private float health = 500;
+
+    private float counter;
 
 	// Use this for initialization
 	void Start() {
@@ -52,8 +58,15 @@ public class LevelManager : Singleton<LevelManager> {
 	
 	// Update is called once per frame
 	void Update() {
-		
-	}
+        counter += Time.deltaTime;
+        if (counter >= 1) {
+            counter = 0;
+            HealthBar.transform.FindChild("HealthBackgroundImage").FindChild("HealthBarImage").GetComponent<Image>().fillAmount -= 1/500f;
+            health -= 1;
+            HealthBar.transform.FindChild("HealthNum").GetComponent<Text>().text = health.ToString();
+        }
+
+    }
 
 	private void CreateLevel(){
         Tiles = new Dictionary<Point, TileScript>();
@@ -86,6 +99,11 @@ public class LevelManager : Singleton<LevelManager> {
 		createBoundaryCollisionBoxes ();
 
         placeAmmoBoxes();
+
+        counter = 0;
+
+        HealthBar = PlayerManager.Instance.playerUICanvas.transform.FindChild("BubbleactorHealthPanel").gameObject;
+        HealthBar.transform.FindChild("HealthNum").GetComponent<Text>().text = health.ToString();
     }
 
 	private void PlaceTile(string tileType, int x, int y, Vector3 worldStart){
@@ -133,5 +151,14 @@ public class LevelManager : Singleton<LevelManager> {
         Tiles[roomTiles[idx]].PlaceAmmo();
         int idx2 = (num  + roomTiles.Count/2) % (roomTiles.Count - 1);
         Tiles[roomTiles[idx2]].PlaceAmmo();
+    }
+
+    public void updateHealth() {
+        health += 10;
+        if(health > 500) {
+            health = 500;
+        }
+        HealthBar.transform.FindChild("HealthBackgroundImage").FindChild("HealthBarImage").GetComponent<Image>().fillAmount = (health/500f);
+        HealthBar.transform.FindChild("HealthNum").GetComponent<Text>().text = health.ToString();
     }
 }

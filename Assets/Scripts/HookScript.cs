@@ -97,6 +97,7 @@ public class HookScript : MonoBehaviour {
 				int killCount = transform.childCount;
 				foreach (Transform child in transform) {
 					BubbleManager.Destroy(child.gameObject);
+                    LevelManager.Instance.updateHealth();
 				}
 				print ("Killed " + killCount + " bubbles");
 				isFiring = false;
