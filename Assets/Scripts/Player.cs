@@ -5,14 +5,10 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets._2D {
-    public class Player : Movable {
+	public class Player : Movable {
 
 
         public int playerNumber { get; private set; }
-        private TowerPanel towerPanel;
-
-        [SerializeField]
-        private GameObject tower_projectile;
 
         private float moveCounter = 0;
         private float sellCounter = 0;
@@ -22,19 +18,14 @@ namespace UnityStandardAssets._2D {
         private float interactCounter = 0;
         private bool selecting = false;
         private bool working = false;
-		private bool operatingHook = false;
-        private int projectileSpeed = 20;
         private int ammoInClip = 8;
         private int ammo = 80;
-        public int Ammo { get { return ammo; } set { this.ammo = value; } }
         private int gold = 100;
-        public int Gold { get { return gold; } }
-        public int AmmoInClip { get { return ammoInClip; } set { this.ammoInClip = value; } }
-        public int ClipSize { get { return clipSize; } }
 
         //Tower selection menu
         private int selectedOption = 0;
-        private int optionsPerRow = 2;  //temporary; will use an accessor later
+        private int optionsPerRow = 3;  //temporary; will use an accessor later
+        private int numOptions = 9;     //temporary; will use an accessor later
 
         private const int clipSize = 8;
         private const float reloadTime = 2;
@@ -49,8 +40,6 @@ namespace UnityStandardAssets._2D {
         // Use this for initialization
         void Start() {
             moveSprite(startLocation);
-            towerPanel = GameObject.Find("Canvas" + playerNumber).transform.FindChild("TowerPanel" + playerNumber).GetComponent<TowerPanel>();
-            towerPanel.gameObject.SetActive(false);
 			restrictedTileTypes = new string[]{ "water" };
         }
 
@@ -92,77 +81,53 @@ namespace UnityStandardAssets._2D {
             }
 
             //If the player is selecting something from a menu
-			if (selecting) {
-				//If the player cancels the tower selection menu
-				if (input.cancelDown) {
-					selecting = false;
-					LevelManager.Instance.TowerMenu [playerNumber - 1].SetActive (false);
-				}
+            if(selecting) {
+                //If the player cancels the tower selection menu
+                if(input.cancelDown) {
+                    selecting = false;
+                    LevelManager.Instance.TowerMenu.SetActive(false);
+                }
                 //If the player releases the build button, begin building the last selected tower
-                else if (input.buildUpgradeUp) {
-					working = true;
-					selecting = false;
-					LevelManager.Instance.TowerMenu [playerNumber - 1].SetActive (false);
-				}
+                else if(input.buildUpgradeUp) {
+                    working = true;
+                    selecting = false;
+                    LevelManager.Instance.TowerMenu.SetActive(false);
+                }
                 //Otherwise, the player can alter the selected tower with movement keys
                 else {
-					if (input.upHold && !input.prevUpHold) {
-						selectedOption -= optionsPerRow;
-					}    //Move up one row
-                    else if (input.downHold && !input.prevDownHold) {
-						selectedOption += optionsPerRow;
-					}    //Move down one row
-                    else if (input.rightHold && !input.prevRightHold) {
-						selectedOption++;
-					}                   //Move right one space
-                    else if (input.leftHold && !input.prevLeftHold) {
-						selectedOption--;
-					}                   //Move left one space
+                    if(input.up)            { selectedOption -= optionsPerRow; }    //Move up one row
+                    else if(input.down)     { selectedOption += optionsPerRow; }    //Move down one row
+                    else if(input.right)    { selectedOption++; }                   //Move right one space
+                    else if(input.left)     { selectedOption--; }                   //Move left one space
+
                     //All actions that can alter the selected option wrap back around
-                    if (selectedOption >= towerPanel.numOptions()) {
-                        selectedOption %= towerPanel.numOptions();
+                    if (selectedOption >= numOptions) {
+                        selectedOption %= numOptions;
                     }
-                    while (selectedOption < 0) {
-                        selectedOption += towerPanel.numOptions();
+                    while (selectedOption <= 0) {
+                        selectedOption += numOptions;
                     }
-                    LevelManager.Instance.Tiles[location].setCurrentTile(playerNumber);
-                    towerPanel.menuSelection(selectedOption);
                 }
             }
             //If the player is in the process of building something
-            else if (working) {
-				buildUpgradeCounter += Time.deltaTime;
-				transform.Rotate (new Vector3 (0, 0, 90));//temporary "working" animation
+            else if(working) {
+                transform.Rotate(new Vector3(0, 0, 90));//temporary "working" animation
+                buildUpgradeCounter += Time.deltaTime;
 
-				//If the player cancels the build command
-				if (input.cancelDown) {
-					buildUpgradeCounter = 0;
-					working = false;
-					moveSprite (location);//temporary to correct facing after random rotation
-				}
+                //If the player cancels the build command
+                if(input.cancelDown) {
+                    buildUpgradeCounter = 0;
+                    working = false;
+                    moveSprite(location);//temporary to correct facing after random rotation
+                }
                 //If the build command completes
-                else if (buildUpgradeCounter >= buildUpgradeTime) {
-
-                    
-					//build the selected tower on this line
-					buildUpgradeCounter = 0;
-					working = false;
-					moveSprite (location);//temporary to correct facing after random rotation
-
-					towerPanel.handleSelection (playerNumber);
-					LevelManager.Instance.Tiles [location].PlaceTower (playerNumber);
-				}
-			} else if (operatingHook && !input.interactDown) {
-				print ("toggle operating hook");
-				HookScript hs = currentTile.GetComponentInChildren<HookScript> ();
-				if (input.downHold) {
-					hs.MoveHookCounterClockwise ();
-				} else if (input.upHold) {
-					hs.MoveHookClockwise ();
-				} else if (input.leftHold) {
-					hs.LaunchHook ();
-				}
-			}
+                if(buildUpgradeCounter >= buildUpgradeTime) {
+                    //build the selected tower on this line
+                    buildUpgradeCounter = 0;
+                    working = false;
+                    moveSprite(location);//temporary to correct facing after random rotation
+                }
+            }
             //If the player starts building something
             else if (input.buildUpgradeDown) {
                 //Can only build on walls
@@ -171,11 +136,7 @@ namespace UnityStandardAssets._2D {
                     //selectedOption = 0; //(uncomment this line if saving past selection is undesired)
                     //Build tower if there's no tower at location (open tower selection menu)
                     if (!currentTile.IsTower) {
-                        //Debug.Log(LevelManager.Instance.TowerMenu[playerNumber - 1]);
-                        LevelManager.Instance.TowerMenu[playerNumber - 1].GetComponent<RectTransform>().transform.position = transform.position;
-                        LevelManager.Instance.TowerMenu[playerNumber - 1].SetActive(true);
-
-                        //currentTile.TowerMenu(transform.position);
+                        currentTile.TowerMenu(transform.position);
                     }
                     //Upgrade tower if there is a tower at location (open tower upgrade selection menu)
                     else {
@@ -197,85 +158,57 @@ namespace UnityStandardAssets._2D {
             }
             //If the player is interacting with something
             else if(input.interactDown) {
-
-                //TileScript next = LevelManager.Instance.Tiles[getNextPoint(facing)];
+                TileScript next = LevelManager.Instance.Tiles[location.getPointInDirection(facing)];
 
                 //Interact with something if facing an object that can be interacted with
-				if(currentTile.Type == "hook") {
-					operatingHook = operatingHook ? false : true;
-                }
-            }   
-            else {
-                //If the player is firing their weapon (weapons are fully automatic)
-                if (input.fireDown || input.fireHold) {
-                    //Fire weapon in facing direction if there is ammo left in the clip
-                    if (ammoInClip > 0 && fireCounter > fireCooldown) {
-                        ammoInClip--;
-                        fireCounter = 0;
-                        reloadCounter = 0;
-                        //fire bullet on this line
-                        GameObject bullet = Instantiate(tower_projectile, transform.position, transform.rotation) as GameObject;
-                        bullet.GetComponent<Rigidbody2D>().velocity = facing * projectileSpeed;
+                if(true) {
+                    interactCounter += Time.deltaTime;
+                    if(interactCounter > interactTime) {
+                        interactCounter = 0;
+                        //interact with object on this line
                     }
                 }
-                //If the player is moving (can move anywhere except water)
-                if (moveCounter > moveCooldown) {
-                    if (input.upHold || input.downHold || input.leftHold || input.rightHold) {
+            }
+            //If the player is firing their weapon (weapons are fully automatic)
+            else if(input.fireDown || input.fireHold) {
+                //Fire weapon in facing direction if there is ammo left in the clip
+                if(ammoInClip > 0 && fireCounter > fireCooldown) {
+                    ammoInClip--;
+                    fireCounter = 0;
+                    reloadCounter = 0;
+                    //fire bullet on this line
+                }
+            }
+            //If the player is moving (can move anywhere except water)
+            else {
+                if(moveCounter > moveCooldown) {
+                    if (input.up || (input.upHold && facing == Vector3.up)) {
+                        moveInDirection(facing);
+                        moveCounter = 0;
+                    }
+                    else if (input.down || (input.downHold && facing == Vector3.down)) {
+                        moveInDirection(facing);
+                        moveCounter = 0;
+                    }
+                    else if (input.left || (input.leftHold && facing == Vector3.left)) {
+                        moveInDirection(facing);
+                        moveCounter = 0;
+                    }
+                    else if (input.right || (input.rightHold && facing == Vector3.right)) {
                         moveInDirection(facing);
                         moveCounter = 0;
                     }
                 }
             }
-
-            /// Ammo reload section
-            if(currentTile.Type == "room") {
-                currentTile.updateUsables(playerNumber);
-            }
         }
 
-   /*
-        //Get the next point in the given direction
-        private Point getNextPoint(Vector3 facing) {
-            Point next = new Point(location.X + (int)facing.x, location.Y + (int)facing.y);
-            return next;
-        }
-
-        //Move the player in the given direction if the new space is not on water (illegal); call moveSprite() to update the player's facing direction
-        private void moveInDirection(Vector3 facing) {            
-            if (facing != Vector3.zero) {
-                Point next;
-                if (facing == Vector3.up || facing == Vector3.down) {
-                    next = getNextPoint(-facing);
-                }
-                else {
-                    next = getNextPoint(facing);
-                }                
-                
-                if (LevelManager.Instance.Tiles[next].Type != "water") {
-                    location = next;
-                }
-                moveSprite(location);
-            }
-        }
-
-        //Put the player on the given point and update facing direction
-        private void moveSprite(Point point) {
-            transform.position = new Vector3(LevelManager.Instance.worldStart.x + LevelManager.Instance.TileSize * point.X, LevelManager.Instance.worldStart.y - LevelManager.Instance.TileSize * point.Y, 0);
-            float angle = Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }
-        */
-        //Creates the player at coordinates x and y with the given player number; sets wherever they start to be the default start location
-        public void createPlayerAt(int number, int x, int y) {
-            
-            playerNumber = number;
-            startLocation = new Point(x, y);
-            location = startLocation;
-            facing = Vector3.right;
-            moveSprite(location);
-            
-            
-            LevelManager.Instance.setTowerMenu(GameObject.Find("TowerPanel" + playerNumber), playerNumber);
-        }
+		//Creates the player at coordinates x and y with the given player number; sets wherever they start to be the default start location
+		public void createPlayerAt(int number, int x, int y) {
+			playerNumber = number;
+			startLocation = new Point(x, y);
+			location = startLocation;
+			facing = Vector3.right;
+			moveSprite(location);
+		}
     }
 }

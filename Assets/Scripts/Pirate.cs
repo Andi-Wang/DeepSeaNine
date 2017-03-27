@@ -38,7 +38,7 @@ public class Pirate : Movable {
 		location = start;
 		facing = Vector3.right;
 		moveSprite(location);
-		directions = AI.aStar (start, new Point(15,15), "path");
+		directions = AI.aStar (start, new Point(22,18), "path");
 		movementCount = 0;
 	}
 }

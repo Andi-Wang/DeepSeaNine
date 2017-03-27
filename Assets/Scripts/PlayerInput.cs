@@ -8,11 +8,11 @@ namespace UnityStandardAssets._2D {
         public class Input {
             public Vector3 lastDirection;
 
-            public bool prevUpHold = false;
-            public bool prevDownHold = false;
-            public bool prevLeftHold = false;
-            public bool prevRightHold = false;
-            
+            public bool up;
+            public bool down;
+            public bool left;
+            public bool right;
+
             public bool upHold;
             public bool downHold;
             public bool leftHold;
@@ -31,15 +31,10 @@ namespace UnityStandardAssets._2D {
             public bool cancelDown;
 
             public void resetButtonDown() {
-                prevUpHold = upHold;
-                prevDownHold = downHold;
-                prevLeftHold = leftHold;
-                prevRightHold = rightHold;
-
-                upHold = false;
-                downHold = false;
-                leftHold = false;
-                rightHold = false;
+                up = false;
+                down = false;
+                left = false;
+                right = false;
 
                 interactDown = false;
                 fireDown = false;
@@ -48,7 +43,7 @@ namespace UnityStandardAssets._2D {
                 sellDown = false;
                 sellUp = false;
                 cancelDown = false;
-            }
+        }
         }
 
         private Player player;
@@ -57,7 +52,6 @@ namespace UnityStandardAssets._2D {
         private void Awake() {
             player = GetComponent<Player>();
             input = new Input();
-            input.lastDirection = new Vector3(1.0f, 0f, 0f);
         }
 
         private void Update() {
@@ -84,34 +78,35 @@ namespace UnityStandardAssets._2D {
             if (!input.cancelDown) {
                 input.cancelDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Cancel");
             }
-
-
-            if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Vertical") > 0) {
+            if (CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Up")) {
                 input.lastDirection = Vector3.up;
-                input.upHold = true;
+                input.up = true;
             }
-            if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Vertical") < 0) {
+            if (CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Down")) {
                 input.lastDirection = Vector3.down;
-                input.downHold = true;
+                input.down = true;
             }
-            if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Horizontal") < 0) {
+            if (CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Left")) {
                 input.lastDirection = Vector3.left;
-                input.leftHold = true;
+                input.left = true;
             }
-            if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Horizontal") > 0) {
+            if (CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Right")) {
                 input.lastDirection = Vector3.right;
-                input.rightHold = true;
+                input.right = true;
             }
         }
 
 
         private void FixedUpdate() {
+            input.upHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Up");
+            input.downHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Down");
+            input.leftHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Left");
+            input.rightHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Right");
+
             input.fireHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Fire");
             input.interactHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Interact");
             input.buildUpgradeHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Build/Upgrade");
             input.sellHold = CrossPlatformInputManager.GetButton("Player" + player.playerNumber + "Sell");
-
-
 
             player.Move(input);
             input.resetButtonDown();
