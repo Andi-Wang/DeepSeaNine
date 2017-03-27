@@ -14,29 +14,49 @@ public class BubbleManager : Singleton<BubbleManager> {
 	public GameObject BubblePrefab;
 
 	[SerializeField]
-	public float initialDelay = 15f;
+	public GameObject TreasurePrefab;
 
 	[SerializeField]
-	public float spawnTime = 5f;
+	public int MaxBubbleCount = 10;
 
-	public Dictionary<Point, BubbleScript> Bubbles;
+	[SerializeField]
+	public int MaxTreasureCount = 10;
+
+	[SerializeField]
+	public float InitialBubbleDelay = 5f;
+
+	[SerializeField]
+	public float InitialTreasureDelay = 0f;
+
+	[SerializeField]
+	public float BubbleSpawnTime = 5f;
+
+	[SerializeField]
+	public float TreasureSpawnTime = 3f;
+
+	public List<BubbleScript> Bubbles;
+	public List<TreasureScript> Treasures;
 
 	// Use this for initialization
 	void Start () {
 		// Fetch a list of possible spawn locations.
-		Bubbles = new Dictionary<Point, BubbleScript>();
-		InvokeRepeating ("spawn", initialDelay, spawnTime);
+		Bubbles = new List<BubbleScript>();
+		Treasures = new List<TreasureScript> ();
+		InvokeRepeating ("spawnBubbleRepeating", InitialBubbleDelay, BubbleSpawnTime);
+		InvokeRepeating ("spawnTreasureRepeating", InitialTreasureDelay, TreasureSpawnTime);
 	}
 
 	// Spawns in a bubble at a random location chosen from valid points.
-	void spawn() {
+	void spawnBubbleRepeating() {
 		// Spawns a bubble that is randomly chosen from the list of valid bubble spawn points.
-		List<Point> validSpawnPoints = LevelManager.Instance.WaterTiles;
-		Point potentialPoint = default(Point);
-		while (potentialPoint.Equals(default(Point)) || Bubbles.ContainsKey (potentialPoint)) {
-			potentialPoint = validSpawnPoints [(int)System.Math.Floor ((float)UnityEngine.Random.Range (0, validSpawnPoints.Count))];
+		if(Bubbles.Count < MaxBubbleCount) {
+			List<Point> validSpawnPoints = LevelManager.Instance.WaterTiles;
+			Point potentialPoint = default(Point);
+			while (potentialPoint.Equals(default(Point))) {
+				potentialPoint = validSpawnPoints [(int)System.Math.Floor ((float)UnityEngine.Random.Range (0, validSpawnPoints.Count))];
+			}
+			spawnBubble(potentialPoint);
 		}
-		spawnBubble(potentialPoint);
 	}
 
 	// Spawns in a bubble at a specific location. Does not check if it is a valid tile, so god help you if you mess it up.
@@ -46,7 +66,26 @@ public class BubbleManager : Singleton<BubbleManager> {
 
 		BubbleScript bs = Instantiate(BubblePrefab).GetComponent<BubbleScript>();
 		bs.setup(location, new Vector3(worldStart.x + (tileSize * location.X), worldStart.y - (tileSize * location.Y), this.zIndex), BubbleLayer);
-		Bubbles.Add (location, bs);
+		Bubbles.Add (bs);
+	}
+
+	void spawnTreasureRepeating() {
+		if (Treasures.Count < MaxTreasureCount) {
+			List<Point> validSpawnPoints = LevelManager.Instance.WaterTiles;
+			Point potentialPoint = default(Point);
+			while (potentialPoint.Equals(default(Point))) {
+				potentialPoint = validSpawnPoints [(int)System.Math.Floor ((float)UnityEngine.Random.Range (0, validSpawnPoints.Count))];
+			}
+			spawnTreasure(potentialPoint);
+		}
+	}
+
+	void spawnTreasure(Point location) {
+		Vector3 worldStart = LevelManager.Instance.worldStart;
+		float tileSize = LevelManager.Instance.TileSize;
+		TreasureScript ts = Instantiate(TreasurePrefab).GetComponent<TreasureScript>();
+		ts.setup(location, new Vector3(worldStart.x + (tileSize * location.X), worldStart.y - (tileSize * location.Y), this.zIndex), BubbleLayer);
+		Treasures.Add (ts);
 	}
 		
 	// Update is called once per frame
