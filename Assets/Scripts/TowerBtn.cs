@@ -8,12 +8,16 @@ public class TowerBtn : MonoBehaviour {
     private GameObject towerPrefab;
     [SerializeField]
     private GameObject selectionBox;
+    [SerializeField]
+    private int gold;
 
     public GameObject TowerPrefab {
         get {
             return towerPrefab;
         }
     }
+
+    public int Gold { get { return gold; } }
 
     public void highlighted(bool selected) {
         if (selected) {

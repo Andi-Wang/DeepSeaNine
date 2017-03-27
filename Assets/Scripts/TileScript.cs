@@ -131,6 +131,7 @@ public class TileScript : MonoBehaviour {
         if (GameManager.Instance.ClickedBtn[playerNumber - 1] != null && !IsTower) {
             GameObject tower = (GameObject)Instantiate(GameManager.Instance.ClickedBtn[playerNumber - 1].TowerPrefab, transform.position, Quaternion.identity);
             tower.transform.SetParent(transform);
+            PlayerManager.Instance.playerArray[playerNumber - 1].Gold -= GameManager.Instance.ClickedBtn[playerNumber - 1].Gold;
             GameManager.Instance.BuyTower(playerNumber);
             this.IsTower = true;
         }

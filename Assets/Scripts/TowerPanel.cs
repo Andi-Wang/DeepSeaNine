@@ -9,6 +9,8 @@ public class TowerPanel : MonoBehaviour {
     private int selection = 0;
     private int newIdx = 0;
 
+    public TowerBtn[] Towers { get { return towers; } }
+
     public int numOptions() {
         return towers.Length;
     }

@@ -28,7 +28,7 @@ namespace UnityStandardAssets._2D {
         private int ammo = 80;
         public int Ammo { get { return ammo; } set { this.ammo = value; } }
         private int gold = 100;
-        public int Gold { get { return gold; } }
+        public int Gold { get { return gold; } set { this.gold = value; } }
         public int AmmoInClip { get { return ammoInClip; } set { this.ammoInClip = value; } }
         public int ClipSize { get { return clipSize; } }
 
@@ -127,31 +127,40 @@ namespace UnityStandardAssets._2D {
                     }
                     LevelManager.Instance.Tiles[location].setCurrentTile(playerNumber);
                     towerPanel.menuSelection(selectedOption);
+
                 }
             }
             //If the player is in the process of building something
             else if (working) {
-				buildUpgradeCounter += Time.deltaTime;
-				transform.Rotate (new Vector3 (0, 0, 90));//temporary "working" animation
+                int towerCost = towerPanel.Towers[selectedOption].Gold;
+                if (towerCost <= gold) {
 
-				//If the player cancels the build command
-				if (input.cancelDown) {
-					buildUpgradeCounter = 0;
-					working = false;
-					moveSprite (location);//temporary to correct facing after random rotation
-				}
-                //If the build command completes
-                else if (buildUpgradeCounter >= buildUpgradeTime) {
+                    buildUpgradeCounter += Time.deltaTime;
+                    transform.Rotate(new Vector3(0, 0, 90)); //temporary "working" animation
 
-                    
-					//build the selected tower on this line
-					buildUpgradeCounter = 0;
-					working = false;
-					moveSprite (location);//temporary to correct facing after random rotation
+                    //If the player cancels the build command
+                    if (input.cancelDown) {
+                        buildUpgradeCounter = 0;
+                        working = false;
+                        moveSprite(location);//temporary to correct facing after random rotation
+                    }
+                    //If the build command completes
+                    else if (buildUpgradeCounter >= buildUpgradeTime) {
 
-					towerPanel.handleSelection (playerNumber);
-					LevelManager.Instance.Tiles [location].PlaceTower (playerNumber);
-				}
+
+                        //build the selected tower on this line
+                        buildUpgradeCounter = 0;
+                        working = false;
+                        moveSprite(location);//temporary to correct facing after random rotation
+
+                        towerPanel.handleSelection(playerNumber);
+                        LevelManager.Instance.Tiles[location].PlaceTower(playerNumber);
+                    }
+                }
+                else {
+                    buildUpgradeCounter = 0;
+                    working = false;
+                }
 			} else if (operatingHook && !input.interactDown) {
 				print ("toggle operating hook");
 				HookScript hs = currentTile.GetComponentInChildren<HookScript> ();
