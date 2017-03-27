@@ -25,10 +25,10 @@ namespace UnityStandardAssets._2D {
         private int projectileSpeed = 20;
         private int ammoInClip = 8;
         private int ammo = 80;
-        public int Ammo { get { return ammo; } }
+        public int Ammo { get { return ammo; } set { this.ammo = value; } }
         private int gold = 100;
         public int Gold { get { return gold; } }
-        public int AmmoInClip { get { return ammoInClip; } }
+        public int AmmoInClip { get { return ammoInClip; } set { this.ammoInClip = value; } }
         public int ClipSize { get { return clipSize; } }
 
         //Tower selection menu
@@ -210,6 +210,11 @@ namespace UnityStandardAssets._2D {
                         moveCounter = 0;
                     }
                 }
+            }
+
+            /// Ammo reload section
+            if(currentTile.Type == "room") {
+                currentTile.updateUsables(playerNumber);
             }
         }
 

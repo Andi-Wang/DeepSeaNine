@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityStandardAssets._2D;
 
 public class TileScript : MonoBehaviour {
 
     public Point GridPosition { get; private set; }
     public string Type { get; private set; }
     public bool IsTower { get; private set; }
-
-    private Color startColor;
+    private bool isAmmo;
     // Use this for initialization
     void Start() {
         IsTower = false;
+        isAmmo = true;
 	}
 	
 	// Update is called once per frame
@@ -51,8 +52,9 @@ public class TileScript : MonoBehaviour {
         LevelManager.Instance.Tiles.Add(gridPos, this);
 		if (this.Type == "water") {
 			LevelManager.Instance.WaterTiles.Add(gridPos);
-		}
-        startColor = this.GetComponent<Renderer>().material.color;
+		}else if(this.Type == "room") {
+            LevelManager.Instance.roomTiles.Add(gridPos);
+        }
     }
 
    /* private void OnMouseEnter() {
@@ -64,13 +66,13 @@ public class TileScript : MonoBehaviour {
 
     }*/
 
-    private void OnMouseExit() {
+    /*private void OnMouseExit() {
 
         if (this.Type == "wall") {
             this.GetComponent<Renderer>().material.color = startColor;
         }
 
-    }
+    }*/
 
     public void setCurrentTile(int playerNumber) {
         //if (this.Type == "wall") {
@@ -78,7 +80,7 @@ public class TileScript : MonoBehaviour {
             //towerMenu.GetComponent<RectTransform>().transform.position = loc;
             //towerMenu.SetActive(true);
             //LevelManager.Instance.TowerPanel.SetActive(true);
-            GameManager.Instance.CurrentTile[playerNumber - 1] = this;
+        GameManager.Instance.CurrentTile[playerNumber - 1] = this;
         //}
     }
 
@@ -115,6 +117,19 @@ public class TileScript : MonoBehaviour {
             tower.transform.SetParent(transform);
             GameManager.Instance.BuyTower(playerNumber);
             this.IsTower = true;
+        }
+    }
+
+    public void PlaceAmmo() {
+        GameObject ammo = (GameObject)Instantiate(LevelManager.Instance.AmmoBox, transform.position, Quaternion.identity);
+        ammo.transform.SetParent(transform);
+        isAmmo = true;
+    }
+
+    public void updateUsables(int playerIdx) {
+        if (isAmmo) {
+            PlayerManager.Instance.playerArray[playerIdx - 1].Ammo = PlayerManager.Instance.playerArray[playerIdx - 1].ClipSize * 10;
+            PlayerManager.Instance.playerArray[playerIdx - 1].AmmoInClip = PlayerManager.Instance.playerArray[playerIdx - 1].ClipSize;
         }
     }
 }
