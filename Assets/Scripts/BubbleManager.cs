@@ -5,7 +5,7 @@ using UnityEngine;
 public class BubbleManager : Singleton<BubbleManager> {
 
 	// The zIndex layer that Bubbles are going to reside on.
-	private int zIndex = -11;
+	private int zIndex = -9;
 
 	[SerializeField]
 	private Transform BubbleLayer;

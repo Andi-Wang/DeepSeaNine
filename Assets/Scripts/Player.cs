@@ -22,6 +22,7 @@ namespace UnityStandardAssets._2D {
         private float interactCounter = 0;
         private bool selecting = false;
         private bool working = false;
+		private bool operatingHook = false;
         private int projectileSpeed = 20;
         private int ammoInClip = 8;
         private int ammo = 80;
@@ -89,25 +90,32 @@ namespace UnityStandardAssets._2D {
             }
 
             //If the player is selecting something from a menu
-            if(selecting) {
-                //If the player cancels the tower selection menu
-                if(input.cancelDown) {
-                    selecting = false;
-                    LevelManager.Instance.TowerMenu[playerNumber - 1].SetActive(false);
-                }
+			if (selecting) {
+				//If the player cancels the tower selection menu
+				if (input.cancelDown) {
+					selecting = false;
+					LevelManager.Instance.TowerMenu [playerNumber - 1].SetActive (false);
+				}
                 //If the player releases the build button, begin building the last selected tower
-                else if(input.buildUpgradeUp) {
-                    working = true;
-                    selecting = false;
-                    LevelManager.Instance.TowerMenu[playerNumber - 1].SetActive(false);
-                }
+                else if (input.buildUpgradeUp) {
+					working = true;
+					selecting = false;
+					LevelManager.Instance.TowerMenu [playerNumber - 1].SetActive (false);
+				}
                 //Otherwise, the player can alter the selected tower with movement keys
                 else {
-                    if(input.upHold && !input.prevUpHold)              { selectedOption -= optionsPerRow; }    //Move up one row
-                    else if(input.downHold && !input.prevDownHold)     { selectedOption += optionsPerRow; }    //Move down one row
-                    else if(input.rightHold && !input.prevRightHold)   { selectedOption++; }                   //Move right one space
-                    else if(input.leftHold && !input.prevLeftHold)     { selectedOption--; }                   //Move left one space
-
+					if (input.upHold && !input.prevUpHold) {
+						selectedOption -= optionsPerRow;
+					}    //Move up one row
+                    else if (input.downHold && !input.prevDownHold) {
+						selectedOption += optionsPerRow;
+					}    //Move down one row
+                    else if (input.rightHold && !input.prevRightHold) {
+						selectedOption++;
+					}                   //Move right one space
+                    else if (input.leftHold && !input.prevLeftHold) {
+						selectedOption--;
+					}                   //Move left one space
                     //All actions that can alter the selected option wrap back around
                     if (selectedOption >= towerPanel.numOptions()) {
                         selectedOption %= towerPanel.numOptions();
@@ -120,29 +128,39 @@ namespace UnityStandardAssets._2D {
                 }
             }
             //If the player is in the process of building something
-            else if(working) {
-                buildUpgradeCounter += Time.deltaTime;
-                transform.Rotate(new Vector3(0, 0, 90));//temporary "working" animation
+            else if (working) {
+				buildUpgradeCounter += Time.deltaTime;
+				transform.Rotate (new Vector3 (0, 0, 90));//temporary "working" animation
 
-                //If the player cancels the build command
-                if (input.cancelDown) {
-                    buildUpgradeCounter = 0;
-                    working = false;
-                    moveSprite(location);//temporary to correct facing after random rotation
-                }
+				//If the player cancels the build command
+				if (input.cancelDown) {
+					buildUpgradeCounter = 0;
+					working = false;
+					moveSprite (location);//temporary to correct facing after random rotation
+				}
                 //If the build command completes
-                else if(buildUpgradeCounter >= buildUpgradeTime) {
+                else if (buildUpgradeCounter >= buildUpgradeTime) {
 
                     
-                    //build the selected tower on this line
-                    buildUpgradeCounter = 0;
-                    working = false;
-                    moveSprite(location);//temporary to correct facing after random rotation
+					//build the selected tower on this line
+					buildUpgradeCounter = 0;
+					working = false;
+					moveSprite (location);//temporary to correct facing after random rotation
 
-                    towerPanel.handleSelection(playerNumber);
-                    LevelManager.Instance.Tiles[location].PlaceTower(playerNumber);
-                }
-            }
+					towerPanel.handleSelection (playerNumber);
+					LevelManager.Instance.Tiles [location].PlaceTower (playerNumber);
+				}
+			} else if (operatingHook && !input.interactDown) {
+				print ("toggle operating hook");
+				HookScript hs = currentTile.GetComponentInChildren<HookScript> ();
+				if (input.downHold) {
+					hs.MoveHookCounterClockwise ();
+				} else if (input.upHold) {
+					hs.MoveHookClockwise ();
+				} else if (input.leftHold) {
+					hs.LaunchHook ();
+				}
+			}
             //If the player starts building something
             else if (input.buildUpgradeDown) {
                 //Can only build on walls
@@ -177,15 +195,10 @@ namespace UnityStandardAssets._2D {
             }
             //If the player is interacting with something
             else if(input.interactDown) {
-                TileScript next = LevelManager.Instance.Tiles[getNextPoint(facing)];
-
+                //TileScript next = LevelManager.Instance.Tiles[getNextPoint(facing)];
                 //Interact with something if facing an object that can be interacted with
-                if(true) {
-                    interactCounter += Time.deltaTime;
-                    if(interactCounter > interactTime) {
-                        interactCounter = 0;
-                        //interact with object on this line
-                    }
+				if(currentTile.Type == "hook") {
+					operatingHook = operatingHook ? false : true;
                 }
             }
             else {
