@@ -48,7 +48,7 @@ public class PirateSpawner : MonoBehaviour {
 	public void setUpSpawner(Point p, PirateShip ship){
 		spawnPoint = p;
 		pirateShip = ship;
-		spawnFrequency = 600;
+		spawnFrequency = 240;
 		spawnTimer = 600;
 		piratesRemaining = 4;
 		setUp = true;

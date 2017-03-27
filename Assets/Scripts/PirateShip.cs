@@ -8,12 +8,13 @@ public class PirateShip : Movable {
 	int movementTimer; //frames
 	List<Vector3> directions;
 	int movementCount;
+	Point destination; // used to pass to pirate spawner
 
 	[SerializeField]
 	public GameObject pirateSpawnerPrefab;
 	bool setupPirateSpawner;
 
-	Point destination; // used to pass to pirate spawner
+	int health;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +23,7 @@ public class PirateShip : Movable {
 		movementFrequency = 30;
 		movementTimer = 0;
 		setupPirateSpawner = false;
+		health = 1000;
 	}
 
 	void Update() {
@@ -33,7 +35,7 @@ public class PirateShip : Movable {
 				setupPirateSpawner = true;
 			}
 
-		// otherwise
+		// otherwise, drive to a dock
 		} else {
 			movementTimer++;
 			if (movementTimer > movementFrequency) {

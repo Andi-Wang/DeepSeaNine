@@ -9,12 +9,15 @@ public class Pirate : Movable {
 	List<Vector3> directions;
 	int movementCount;
 
+	int health;
+
 	// Use this for initialization
 	void Start () {
 		moveSprite(location);
 		restrictedTileTypes = new string[]{};
 		movementFrequency = 30;
 		movementTimer = 0;
+		health = 100;
 	}
 	
 	// Update is called once per frame
