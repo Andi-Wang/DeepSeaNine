@@ -24,6 +24,7 @@ public class HookScript : MonoBehaviour {
 			coll.gameObject.GetComponent<CircleCollider2D> ().enabled = false;
 			coll.gameObject.transform.SetParent (transform);
 			coll.gameObject.transform.localPosition = Vector2.zero;
+			coll.gameObject.GetComponent<Rigidbody2D> ().velocity = GetComponent<Rigidbody2D> ().velocity * -1;
 			RetrieveHook ();
 		} else if(coll.CompareTag("MapBoundary")) {
 			RetrieveHook ();
@@ -56,29 +57,38 @@ public class HookScript : MonoBehaviour {
 	}
 		
 	public void LaunchHook() {
-		dockedPoint = transform.position;
-		isFiring = true;
-		print (transform.forward);
-		GetComponent<Rigidbody2D> ().velocity = transform.up * 10;
+		if (!isFiring && !isReturning) {
+			dockedPoint = transform.position;
+			isFiring = true;
+			print (transform.forward);
+			GetComponent<BoxCollider2D> ().enabled = true;
+			GetComponent<Rigidbody2D> ().velocity = transform.up * 10;
+		}
 	}
 
 	public void RetrieveHook() {
 		GetComponent<Rigidbody2D> ().velocity = GetComponent<Rigidbody2D> ().velocity * -1f;
+		GetComponent<BoxCollider2D> ().enabled = false;
 		isReturning = true;
+	}
+
+	public void MoveHookClockwise() {
+		if (!isFiring) {
+			transform.RotateAround (pivotPoint, new Vector3 (0, 0, -1), RotateRate * Time.deltaTime);
+		}
+	}
+
+	public void MoveHookCounterClockwise() {
+		if (!isFiring) {
+			transform.RotateAround (pivotPoint, new Vector3 (0, 0, 1), RotateRate * Time.deltaTime);
+		}
 	}
 
 	// Update is called once per frame
 	// TODO: Change so it is only controllable by the controlling player.
 	void Update () {
-		if (!isFiring && !isReturning) {
-			if (Input.GetKey (KeyCode.DownArrow)) {
-				transform.RotateAround (pivotPoint, new Vector3 (0, 0, 1), RotateRate * Time.deltaTime);
-			} else if (Input.GetKey (KeyCode.UpArrow)) {
-				transform.RotateAround (pivotPoint, new Vector3 (0, 0, -1), RotateRate * Time.deltaTime);
-			} else if (Input.GetKey (KeyCode.Space)) {
-				LaunchHook ();
-			}
-		} if (isReturning) {
+		
+		if (isReturning) {
 			// Calculate the distance.
 			if (Vector2.Distance(dockedPoint, transform.position) < 0.5f) {
 				GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
