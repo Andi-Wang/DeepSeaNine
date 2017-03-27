@@ -129,9 +129,9 @@ public class LevelManager : Singleton<LevelManager> {
     public void placeAmmoBoxes() {
         System.Random rand = new System.Random();
         int num = rand.Next(0, 100);
-        int idx = num % roomTiles.Count - 1;
+        int idx = num % (roomTiles.Count - 1);
         Tiles[roomTiles[idx]].PlaceAmmo();
-        int idx2 = (num  + roomTiles.Count/2) % roomTiles.Count - 1;
+        int idx2 = (num  + roomTiles.Count/2) % (roomTiles.Count - 1);
         Tiles[roomTiles[idx2]].PlaceAmmo();
     }
 }
