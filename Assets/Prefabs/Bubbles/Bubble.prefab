@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 58235322239950550}
   m_Layer: 0
   m_Name: Bubble
-  m_TagString: Untagged
+  m_TagString: HookTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,7 +56,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -71,8 +71,8 @@ CircleCollider2D:
   m_GameObject: {fileID: 1663924487484314}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_Material: {fileID: 6200000, guid: 568f0d2ed845148eda4296eb44ae0c45, type: 2}
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
