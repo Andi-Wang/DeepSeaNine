@@ -12,10 +12,54 @@ public struct Point{
         this.Y = y;
     }
 
+	public static bool operator ==(Point lhs, Point rhs){
+		if (lhs.X == rhs.X && lhs.Y == rhs.Y) {
+			return true;
+		}
+		return false;
+	}
+
+	public static bool operator !=(Point lhs, Point rhs){
+		if (lhs.X == rhs.X && lhs.Y == rhs.Y) {
+			return false;
+		}
+		return true;
+	}
+
+/* Nothing but trouble!!
+	public override bool Equals(object obj){
+		if (obj == null || this.GetType () != obj.GetType ()) {
+			return false;
+		}
+		return this == ((Point)obj);
+	}
+
+CAUSED STACK OVERFLOW:
+	public override int GetHashCode(){
+		return this.GetHashCode ();
+	}
+*/
 	//Get the next point in the given direction
 	public Point getPointInDirection(Vector3 facing) {
+		if (facing == Vector3.down || facing == Vector3.up) {
+			facing *= -1;
+		}
 		Point next = new Point(X + (int)facing.x, Y + (int)facing.y);
 		return next;
+	}
+
+	// returns direction to point if they are adjacent
+	public Vector3 getDirectionTo(Point p) {
+		if (absoluteX (this, p) == 1) {
+			return Vector3.right;
+		} else if (absoluteX (this, p) == -1) {
+			return Vector3.left;
+		} else if (absoluteY (this, p) == -1) {
+			return Vector3.up;
+		} else if (absoluteY (this, p) == 1) {
+			return Vector3.down;
+		}
+		return Vector3.zero;
 	}
 
 	public static int absoluteX(Point a, Point b){

@@ -9,16 +9,11 @@ public class Movable : MonoBehaviour {
 
 	protected string[] restrictedTileTypes;
 
-	//Move the player in the given direction if the new space is not on water (illegal); call moveSprite() to update the player's facing direction
+	//Move the player in the given direction if the new space is not restricted; call moveSprite() to update the player's facing direction
 	protected void moveInDirection(Vector3 facing) {
 		if(facing != Vector3.zero) {
-			Point next;
-			if (facing == Vector3.up || facing == Vector3.down) {
-				next = location.getPointInDirection(-facing);
-			}
-			else {
-				next = location.getPointInDirection(facing);
-			}                
+			Point next = location.getPointInDirection(facing);
+             
 
 			// isRestricted()
 			bool unrestrictedTile = true;

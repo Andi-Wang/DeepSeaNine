@@ -94,18 +94,4 @@ public class LevelManager : Singleton<LevelManager> {
 		}
 		return typePoints;
 	}
-
-/*	public static List<Vector3> aStar(Point start, Point end, string type){
-		Vector3[] directions = new Vector3[]{ Vector3.up, Vector3.down, Vector3.left, Vector3.right };
-		foreach (Vector3 direction in directions) {
-			Point next;
-			if (direction == Vector3.up || direction == Vector3.down) {
-				//next = getNextPoint(-direction);
-			}
-			else {
-				//next = getNextPoint(direction);
-			} 
-		}
-
-	}*/
 }
