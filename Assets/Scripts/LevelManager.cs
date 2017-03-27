@@ -47,9 +47,14 @@ public class LevelManager : Singleton<LevelManager> {
 
     public GameObject HealthBar { get; set; }
 
-    private float health = 500;
+    private float health = 100;
 
     private float counter;
+
+    private GameObject endPanel;
+
+    private float healthInc = 1;
+    private float totalHealth = 100;
 
 	// Use this for initialization
 	void Start() {
@@ -61,9 +66,14 @@ public class LevelManager : Singleton<LevelManager> {
         counter += Time.deltaTime;
         if (counter >= 1) {
             counter = 0;
-            HealthBar.transform.FindChild("HealthBackgroundImage").FindChild("HealthBarImage").GetComponent<Image>().fillAmount -= 1/500f;
-            health -= 1;
+            HealthBar.transform.FindChild("HealthBackgroundImage").FindChild("HealthBarImage").GetComponent<Image>().fillAmount -= 1/totalHealth;
+            health -= healthInc;
             HealthBar.transform.FindChild("HealthNum").GetComponent<Text>().text = health.ToString();
+            if(health == 0) {
+                PauseGame.Instance.Pause();
+                endPanel.SetActive(true);
+
+            }
         }
 
     }
@@ -104,6 +114,9 @@ public class LevelManager : Singleton<LevelManager> {
 
         HealthBar = PlayerManager.Instance.playerUICanvas.transform.FindChild("BubbleactorHealthPanel").gameObject;
         HealthBar.transform.FindChild("HealthNum").GetComponent<Text>().text = health.ToString();
+
+        endPanel = GameObject.Find("endGameMenuPrefab");
+        endPanel.SetActive(false);
     }
 
 	private void PlaceTile(string tileType, int x, int y, Vector3 worldStart){
@@ -155,10 +168,10 @@ public class LevelManager : Singleton<LevelManager> {
 
     public void updateHealth() {
         health += 10;
-        if(health > 500) {
-            health = 500;
+        if(health > totalHealth) {
+            health = totalHealth;
         }
-        HealthBar.transform.FindChild("HealthBackgroundImage").FindChild("HealthBarImage").GetComponent<Image>().fillAmount = (health/500f);
+        HealthBar.transform.FindChild("HealthBackgroundImage").FindChild("HealthBarImage").GetComponent<Image>().fillAmount = (health/totalHealth);
         HealthBar.transform.FindChild("HealthNum").GetComponent<Text>().text = health.ToString();
     }
 }
