@@ -25,16 +25,16 @@ public class TowerProjectile : MonoBehaviour {
         Vector3 pos = transform.position;
         LevelManager lm = LevelManager.Instance;
 
-        int tileSize = (int)(lm.TileSize * 100);
+        float tileSize = lm.TileSize;
 
         // Don't look at this disgusting mess.
         // For some reason our main developer decided to use a float for tile size and
         // 1 pixel is .01 in value. 
-        int x = ((int)System.Math.Abs((lm.worldStart.x + pos.x) * 100) / tileSize);
-        int y = ((int)System.Math.Abs((lm.worldStart.y - pos.y) * 100) / tileSize);
+        int x = (int)(System.Math.Abs(pos.x - lm.worldStart.x) / tileSize);
+        int y = (int)(System.Math.Abs(pos.y - lm.worldStart.y) / tileSize);
 
         Point current = new Point(x, y);
-        Debug.Log("(" + lm.worldStart.x + "," + lm.worldStart.y + ")");
+        //Debug.Log("(" + lm.worldStart.x + "," + lm.worldStart.y + ")");
         //Debug.Log("(" + pos.x + "," + pos.y + ")");
         //Debug.Log("(" + current.X + "," + current.Y + ")");
 
