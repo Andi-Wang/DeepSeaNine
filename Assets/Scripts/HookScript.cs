@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets._2D;
 
 public class HookScript : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class HookScript : MonoBehaviour {
 	private Vector3 spriteSize;
 	private Vector3 pivotPoint;
 	private Vector3 dockedPoint;
+	private Player pilot;
 
 	[SerializeField]
 	public float RotateRate;
@@ -17,6 +19,7 @@ public class HookScript : MonoBehaviour {
 	void Start () {
 		isFiring = false;
 		isReturning = false;
+		pilot = default(Player);
 	}
 		
 	void OnTriggerEnter2D(Collider2D coll) {
@@ -84,10 +87,16 @@ public class HookScript : MonoBehaviour {
 		}
 	}
 
+	public void SetPilot(Player player) {
+		pilot = player;
+	}
+
+	public void RemovePilot() {
+		pilot = default(Player);
+	}
+
 	// Update is called once per frame
-	// TODO: Change so it is only controllable by the controlling player.
 	void Update () {
-		
 		if (isReturning) {
 			// Calculate the distance.
 			if (Vector2.Distance(dockedPoint, transform.position) < 0.5f) {
@@ -96,9 +105,18 @@ public class HookScript : MonoBehaviour {
 				// Destroy bubbles attached.
 				int killCount = transform.childCount;
 				foreach (Transform child in transform) {
+					// Check with the BubbleManager what object this is.
+					if (child.gameObject.GetComponent<BubbleScript> () != null) {
+						// This is a bubble.
+						LevelManager.Instance.updateHealth ();
+						BubbleManager.Instance.Bubbles.Remove (child.gameObject.GetComponent<BubbleScript>());
+					} else if (child.gameObject.GetComponent<TreasureScript> () != null) {
+						// Is a treasure.
+						pilot.Gold += child.gameObject.GetComponent<TreasureScript>().Value;
+						BubbleManager.Instance.Treasures.Remove (child.gameObject.GetComponent<TreasureScript>());
+					}
 					BubbleManager.Destroy(child.gameObject);
 				}
-				print ("Killed " + killCount + " bubbles");
 				isFiring = false;
 				isReturning = false;
 			}

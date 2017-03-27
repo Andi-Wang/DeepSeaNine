@@ -164,6 +164,7 @@ namespace UnityStandardAssets._2D {
 			} else if (operatingHook && !input.interactDown) {
 				print ("toggle operating hook");
 				HookScript hs = currentTile.GetComponentInChildren<HookScript> ();
+				hs.SetPilot (this);
 				if (input.downHold) {
 					hs.MoveHookCounterClockwise ();
 				} else if (input.upHold) {
