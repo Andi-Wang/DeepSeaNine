@@ -247,7 +247,7 @@ MonoBehaviour:
   towerPrefab: {fileID: 1824444171471442, guid: 2ade2a2269421d94c924f9658e46d670,
     type: 2}
   selectionBox: {fileID: 1089122760137158}
-  gold: 25
+  gold: 50
 --- !u!114 &114215878644437812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,7 +262,7 @@ MonoBehaviour:
   towerPrefab: {fileID: 1898152486076608, guid: 479ccea1ea6300c409a3f1e710eea71f,
     type: 2}
   selectionBox: {fileID: 1599205773726796}
-  gold: 50
+  gold: 100
 --- !u!114 &114268017935240308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -320,7 +320,7 @@ MonoBehaviour:
   towerPrefab: {fileID: 1809017896633340, guid: 4d821ec5ae7af4a4ebb0c3f267ce7b1d,
     type: 2}
   selectionBox: {fileID: 1314685973525350}
-  gold: 75
+  gold: 150
 --- !u!114 &114362462566288402
 MonoBehaviour:
   m_ObjectHideFlags: 1

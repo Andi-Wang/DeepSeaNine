@@ -9,6 +9,7 @@ public class TowerScript : MonoBehaviour {
     private float turnSpeed = 5.0f;
     private float projectileSpeed = 15f;
     private float counter = 0;
+
     [SerializeField]
     private GameObject tower_projectile;
  

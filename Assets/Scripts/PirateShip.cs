@@ -20,7 +20,7 @@ public class PirateShip : Movable {
 	void Start () {
 		moveSprite(location);
 		restrictedTileTypes = new string[]{};
-		movementFrequency = 30;
+		movementFrequency = 15;
 		movementTimer = 0;
 		setupPirateSpawner = false;
 		health = 1000;

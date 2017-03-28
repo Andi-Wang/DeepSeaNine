@@ -32,6 +32,8 @@ public class ShipSpawner : Singleton<ShipSpawner> {
             if (spawnTimer > spawnFrequency)
             {
                 spawnTimer = 0;
+                System.Random rand = new System.Random();
+                spawnFrequency = rand.Next(300, 500);
                 shipSpawn();
             }
         }

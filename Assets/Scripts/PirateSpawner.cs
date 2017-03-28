@@ -48,9 +48,9 @@ public class PirateSpawner : MonoBehaviour {
 	public void setUpSpawner(Point p, PirateShip ship){
 		spawnPoint = p;
 		pirateShip = ship;
-		spawnFrequency = 240;
+		spawnFrequency = 120;
 		spawnTimer = 600;
-		piratesRemaining = 4;
+        piratesRemaining = (int) Random.Range(4, 8);
 		setUp = true;
 	}
 

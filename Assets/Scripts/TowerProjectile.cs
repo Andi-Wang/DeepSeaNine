@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class TowerProjectile : MonoBehaviour {
     public Vector3 face;
+
+    [SerializeField]
+    private int damage;
 	// Use this for initialization
 	void Start () {
-        
+
 	}
 	
 	// Update is called once per frame
@@ -17,9 +20,9 @@ public class TowerProjectile : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "enemy") {
             //Destroy(other.gameObject);
-            other.gameObject.GetComponent<Pirate>().damage(25);
+            Debug.Log(damage);
+            other.gameObject.GetComponent<Pirate>().damage(damage);
             Destroy(gameObject);
-            //Debug.Log("fuck enemies");
         }
     }
 

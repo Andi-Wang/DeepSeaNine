@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
   currentEnemyDistance: 0
-  tower_projectile: {fileID: 1779375066932198, guid: 616238eb82e1091468c0ae328344b5a8,
+  tower_projectile: {fileID: 1556913424326768, guid: 749e4f55649b0c946b4c0698a54fd59d,
     type: 2}
 --- !u!212 &212070716964585396
 SpriteRenderer:
