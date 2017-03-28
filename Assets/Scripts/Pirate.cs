@@ -1,18 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-	
-public class PirateShip : Movable {
+using UnityStandardAssets._2D;
+
+public class Pirate : Movable {
 
 	int movementFrequency { get; set; } //frames
 	int movementTimer; //frames
 	List<Vector3> directions;
 	int movementCount;
-	Point destination; // used to pass to pirate spawner
-
-	[SerializeField]
-	public GameObject pirateSpawnerPrefab;
-	bool setupPirateSpawner;
 
 	int health;
 
@@ -22,24 +18,19 @@ public class PirateShip : Movable {
 		restrictedTileTypes = new string[]{};
 		movementFrequency = 30;
 		movementTimer = 0;
-		setupPirateSpawner = false;
-		health = 1000;
+		health = 100;
 	}
-
-	void Update() {
-        // if the ship has arrived at a dock
+	
+	// Update is called once per frame
+	void Update () {
+        // if the pirate has arrived at the bubbleactor
         if (Time.timeScale == 1)
         {
             if (movementCount >= directions.Count)
             {
-                if (!setupPirateSpawner)
-                {
-                    PirateSpawner pirateSpawner = Instantiate(pirateSpawnerPrefab).GetComponent<PirateSpawner>();
-                    pirateSpawner.setUpSpawner(destination, this);
-                    setupPirateSpawner = true;
-                }
-
-                // otherwise, drive to a dock
+                LevelManager.Instance.damageHealth(10f);
+                Destroy(gameObject);
+                // otherwise
             }
             else
             {
@@ -47,7 +38,7 @@ public class PirateShip : Movable {
                 if (movementTimer > movementFrequency)
                 {
                     movementTimer = 0;
-                    facing = directions[movementCount];
+                    //facing = directions [movementCount]; causes silly rotation for now
                     moveInDirection(directions[movementCount]);
                     movementCount++;
                 }
@@ -55,12 +46,24 @@ public class PirateShip : Movable {
         }
 	}
 
-	public void setupShip(Point start, Point end) {
+	public void setupPirate(Point start) {
 		location = start;
-		destination = end;
 		facing = Vector3.right;
 		moveSprite(location);
-		directions = AI.aStar (start, end, "water");
+		directions = AI.aStar (start, LevelManager.Instance.getPointsByType("goal") , "path");
 		movementCount = 0;
 	}
+
+    public void damage(int d) {
+        health -= d;
+        if(health <= 0) {
+            Destroy(gameObject);
+            foreach (Player player in PlayerManager.Instance.playerArray) {
+                if (player != null) {
+                    player.Gold += 5;
+                }
+            }
+        }
+    }
+
 }

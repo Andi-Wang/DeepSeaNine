@@ -16,8 +16,10 @@ public class TowerProjectile : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "enemy") {
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
+            other.gameObject.GetComponent<Pirate>().damage(25);
             Destroy(gameObject);
+            //Debug.Log("fuck enemies");
         }
     }
 

@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4439896738868250}
   - component: {fileID: 212147525048389722}
+  - component: {fileID: 114746479767864846}
   m_Layer: 0
   m_Name: tower4_1
   m_TagString: Untagged
@@ -40,6 +41,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114746479767864846
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1809017896633340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83de7d833d15b640afe8f645fd52752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEnemy: {fileID: 0}
+  currentEnemyDistance: 0
+  tower_projectile: {fileID: 1779375066932198, guid: 616238eb82e1091468c0ae328344b5a8,
+    type: 2}
 --- !u!212 &212147525048389722
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -70,7 +86,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d395e357c666b63409945167501547d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

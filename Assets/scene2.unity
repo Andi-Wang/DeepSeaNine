@@ -513,6 +513,7 @@ MonoBehaviour:
   ammoBox: {fileID: 1192904101171202, guid: 40fe56987c52b8d4cb149b9ec82d131e, type: 2}
   MapX: 0
   MapY: 0
+  towers: []
 --- !u!4 &594241013
 Transform:
   m_ObjectHideFlags: 0
@@ -879,6 +880,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114351936200053618, guid: eda36b726b8873d448e3af384551c59e,
+        type: 2}
+      propertyPath: playerPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4765479900165414, guid: eda36b726b8873d448e3af384551c59e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0.6680427
@@ -928,7 +934,7 @@ Prefab:
     - target: {fileID: 224883541272697416, guid: eda36b726b8873d448e3af384551c59e,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 347
+      value: 575.5
       objectReference: {fileID: 0}
     - target: {fileID: 224883541272697416, guid: eda36b726b8873d448e3af384551c59e,
         type: 2}
@@ -958,7 +964,7 @@ Prefab:
     - target: {fileID: 224645516754692988, guid: eda36b726b8873d448e3af384551c59e,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 547
+      value: 775.5
       objectReference: {fileID: 0}
     - target: {fileID: 224645516754692988, guid: eda36b726b8873d448e3af384551c59e,
         type: 2}
@@ -974,6 +980,28 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114351936200053618, guid: eda36b726b8873d448e3af384551c59e,
+        type: 2}
+      propertyPath: playerPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1115921516967378, guid: 387e84fa9240dd1448069b9ce389d018,
+        type: 2}
+    - target: {fileID: 114351936200053618, guid: eda36b726b8873d448e3af384551c59e,
+        type: 2}
+      propertyPath: playerPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1491171119364148, guid: 7084bc1bf0818794fb6c4f2e433b98d6,
+        type: 2}
+    - target: {fileID: 114351936200053618, guid: eda36b726b8873d448e3af384551c59e,
+        type: 2}
+      propertyPath: playerPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114351936200053618, guid: eda36b726b8873d448e3af384551c59e,
+        type: 2}
+      propertyPath: playerPrefabs.Array.data[3]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eda36b726b8873d448e3af384551c59e, type: 2}
@@ -1224,7 +1252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4de695963435814080c185bcb908e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pirateShipPrefab: {fileID: 1842755781405844, guid: 15d199d5e02ccd44393cc389996c21b0,
+  pirateShipPrefab: {fileID: 1842755781405844, guid: 27f2a10ccea3ea2418f0b06e1c075254,
     type: 2}
 --- !u!4 &1438037215
 Transform:
@@ -1752,7 +1780,7 @@ Prefab:
     - target: {fileID: 224288231869957180, guid: 2ee9f5d1a47c63c48aec08745fa095b8,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 215.09999
+      value: 283.64996
       objectReference: {fileID: 0}
     - target: {fileID: 224288231869957180, guid: 2ee9f5d1a47c63c48aec08745fa095b8,
         type: 2}
@@ -1762,7 +1790,7 @@ Prefab:
     - target: {fileID: 224288231869957180, guid: 2ee9f5d1a47c63c48aec08745fa095b8,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 250.19998
+      value: 387.29993
       objectReference: {fileID: 0}
     - target: {fileID: 224288231869957180, guid: 2ee9f5d1a47c63c48aec08745fa095b8,
         type: 2}
@@ -1782,7 +1810,7 @@ Prefab:
     - target: {fileID: 224785038997780776, guid: 2ee9f5d1a47c63c48aec08745fa095b8,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 215.09999
+      value: 283.64996
       objectReference: {fileID: 0}
     - target: {fileID: 224785038997780776, guid: 2ee9f5d1a47c63c48aec08745fa095b8,
         type: 2}
@@ -1792,7 +1820,7 @@ Prefab:
     - target: {fileID: 224785038997780776, guid: 2ee9f5d1a47c63c48aec08745fa095b8,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 250.19998
+      value: 387.29993
       objectReference: {fileID: 0}
     - target: {fileID: 224785038997780776, guid: 2ee9f5d1a47c63c48aec08745fa095b8,
         type: 2}
