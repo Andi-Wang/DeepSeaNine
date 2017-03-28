@@ -45,4 +45,12 @@ public class Pirate : Movable {
 		directions = AI.aStar (start, LevelManager.Instance.getPointsByType("goal") , "path");
 		movementCount = 0;
 	}
+
+    public void damage(int d) {
+        health -= d;
+        if(health <= 0) {
+            Destroy(gameObject);
+        }
+    }
+
 }

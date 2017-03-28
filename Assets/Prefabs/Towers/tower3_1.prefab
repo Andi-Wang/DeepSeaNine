@@ -52,6 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83de7d833d15b640afe8f645fd52752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentEnemy: {fileID: 0}
+  currentEnemyDistance: 0
+  tower_projectile: {fileID: 1779375066932198, guid: 616238eb82e1091468c0ae328344b5a8,
+    type: 2}
 --- !u!212 &212760986104428156
 SpriteRenderer:
   m_ObjectHideFlags: 1

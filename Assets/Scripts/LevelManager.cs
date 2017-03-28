@@ -56,6 +56,9 @@ public class LevelManager : Singleton<LevelManager> {
     private float healthInc = 1;
     private float totalHealth = 200;
 
+    public List<GameObject> towers;
+
+    private int range = 3;
 	// Use this for initialization
 	void Start() {
 		CreateLevel();
@@ -73,6 +76,21 @@ public class LevelManager : Singleton<LevelManager> {
                 PauseGame.Instance.Pause();
                 endPanel.SetActive(true);
 
+            }
+        }
+
+        Pirate[] enemies = FindObjectsOfType(typeof(Pirate)) as Pirate[];
+
+        foreach (Pirate enemy in enemies) {
+            foreach (GameObject tower in towers) {
+                TowerScript towerScript = tower.GetComponent<TowerScript>();
+                float distanceX = Math.Abs(enemy.transform.position.x - tower.transform.position.x);
+                float distanceY = Math.Abs(enemy.transform.position.y - tower.transform.position.y);
+                float distance = distanceX + distanceY;
+                if (distance <= range && distance < towerScript.currentEnemyDistance) {
+                    towerScript.currentEnemy = enemy.transform;
+                    towerScript.currentEnemyDistance = distance;
+                }
             }
         }
 
@@ -117,6 +135,7 @@ public class LevelManager : Singleton<LevelManager> {
 
         endPanel = GameObject.Find("endGameMenuPrefab");
         endPanel.SetActive(false);
+        towers = new List<GameObject>();
     }
 
 	private void PlaceTile(string tileType, int x, int y, Vector3 worldStart){
