@@ -21,7 +21,7 @@ public class ShipSpawner : Singleton<ShipSpawner> {
 		spawnPoints = LevelManager.Instance.getPerimeterPoints(); //new List<Point> (){ new Point (0, 0) };
 		destinations = LevelManager.Instance.getPointsByType ("dock");
 		spawnFrequency = 600;
-		spawnTimer = 600;
+		spawnTimer = 0;
 	}
 	
 	void Update () {
@@ -33,7 +33,7 @@ public class ShipSpawner : Singleton<ShipSpawner> {
             {
                 spawnTimer = 0;
                 System.Random rand = new System.Random();
-                spawnFrequency = rand.Next(300, 500);
+                spawnFrequency = rand.Next(450, 750);
                 shipSpawn();
             }
         }
