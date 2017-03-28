@@ -11,7 +11,7 @@ public class LevelManager : Singleton<LevelManager> {
 	private GameObject[] tilePrefabs;
 
     [SerializeField]
-    private CameraMovement cameraMovement;
+    public CameraMovement cameraMovement;
 
     [SerializeField]
     private Transform map;
@@ -56,6 +56,9 @@ public class LevelManager : Singleton<LevelManager> {
     private float healthInc = 1;
     private float totalHealth = 200;
 
+    public List<GameObject> towers;
+
+    private int range = 3;
 	// Use this for initialization
 	void Start() {
 		CreateLevel();
@@ -73,6 +76,21 @@ public class LevelManager : Singleton<LevelManager> {
                 PauseGame.Instance.Pause();
                 endPanel.SetActive(true);
 
+            }
+        }
+
+        Pirate[] enemies = FindObjectsOfType(typeof(Pirate)) as Pirate[];
+
+        foreach (Pirate enemy in enemies) {
+            foreach (GameObject tower in towers) {
+                TowerScript towerScript = tower.GetComponent<TowerScript>();
+                float distanceX = Math.Abs(enemy.transform.position.x - tower.transform.position.x);
+                float distanceY = Math.Abs(enemy.transform.position.y - tower.transform.position.y);
+                float distance = distanceX + distanceY;
+                if (distance <= range && distance < towerScript.currentEnemyDistance) {
+                    towerScript.currentEnemy = enemy.transform;
+                    towerScript.currentEnemyDistance = distance;
+                }
             }
         }
 
@@ -102,8 +120,8 @@ public class LevelManager : Singleton<LevelManager> {
 
         maxTile = Tiles[new Point(MapX - 1, MapY - 1)].transform.position;
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
-        cameraMovement.addPlayer(GameObject.Find("player1(Clone)"));
-        cameraMovement.addPlayer(GameObject.Find("player2(Clone)"));
+        //cameraMovement.addPlayer(GameObject.Find("player1(Clone)"));
+        //cameraMovement.addPlayer(GameObject.Find("player2(Clone)"));
         miniMap.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
 
 		createBoundaryCollisionBoxes ();
@@ -117,6 +135,7 @@ public class LevelManager : Singleton<LevelManager> {
 
         endPanel = GameObject.Find("endGameMenuPrefab");
         endPanel.SetActive(false);
+        towers = new List<GameObject>();
     }
 
 	private void PlaceTile(string tileType, int x, int y, Vector3 worldStart){

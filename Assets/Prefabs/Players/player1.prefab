@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823030338035314499c5b456a71350bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tower_projectile: {fileID: 1452985004803192, guid: 4bd96b34ca92af04fa6d1ab9eba88fd1,
+  tower_projectile: {fileID: 1779375066932198, guid: 616238eb82e1091468c0ae328344b5a8,
     type: 2}
 --- !u!114 &114359471307027874
 MonoBehaviour:
@@ -96,7 +96,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1ec9a07e828c430489b0bd89277ce36d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

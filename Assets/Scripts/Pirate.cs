@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets._2D;
 
 public class Pirate : Movable {
 
@@ -52,4 +53,17 @@ public class Pirate : Movable {
 		directions = AI.aStar (start, LevelManager.Instance.getPointsByType("goal") , "path");
 		movementCount = 0;
 	}
+
+    public void damage(int d) {
+        health -= d;
+        if(health <= 0) {
+            Destroy(gameObject);
+            foreach (Player player in PlayerManager.Instance.playerArray) {
+                if (player != null) {
+                    player.Gold += 5;
+                }
+            }
+        }
+    }
+
 }

@@ -134,6 +134,7 @@ public class TileScript : MonoBehaviour {
             PlayerManager.Instance.playerArray[playerNumber - 1].Gold -= GameManager.Instance.ClickedBtn[playerNumber - 1].Gold;
             GameManager.Instance.BuyTower(playerNumber);
             this.IsTower = true;
+            LevelManager.Instance.towers.Add(tower);
         }
     }
 
