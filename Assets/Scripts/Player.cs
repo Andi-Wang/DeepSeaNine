@@ -7,6 +7,7 @@ using UnityStandardAssets.CrossPlatformInput;
 namespace UnityStandardAssets._2D {
     public class Player : Movable {
 
+		public AudioClip pew;
 
         public int playerNumber { get; private set; }
         private TowerPanel towerPanel;
@@ -224,6 +225,7 @@ namespace UnityStandardAssets._2D {
                         //fire bullet on this line
                         GameObject bullet = Instantiate(tower_projectile, transform.position, transform.rotation) as GameObject;
                         bullet.GetComponent<Rigidbody2D>().velocity = facing * projectileSpeed;
+						AudioSource.PlayClipAtPoint (pew, transform.position);
                     }
                 }
                 //If the player is moving (can move anywhere except water)

@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4121d13038b3e284eb06233cefa9d337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pew: {fileID: 8300000, guid: 488fd340dac36b54ea3e87dbcd9346c7, type: 3}
 --- !u!114 &114652998852380188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -64,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823030338035314499c5b456a71350bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tower_projectile: {fileID: 0}
 --- !u!212 &212930659752869112
 SpriteRenderer:
   m_ObjectHideFlags: 1

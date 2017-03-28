@@ -1,10 +1,12 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets._2D {
     [RequireComponent(typeof(Player))]
     public class PlayerInput : MonoBehaviour {
+
         public class Input {
             public Vector3 lastDirection;
 
@@ -29,6 +31,7 @@ namespace UnityStandardAssets._2D {
             public bool sellHold;
             public bool sellUp;
             public bool cancelDown;
+
 
             public void resetButtonDown() {
                 prevUpHold = upHold;
@@ -68,7 +71,7 @@ namespace UnityStandardAssets._2D {
             }
             if (!input.fireDown) {
                 input.fireDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Fire");
-            }
+			}
             if (!input.buildUpgradeDown) {
                 input.buildUpgradeDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Build/Upgrade");
             }

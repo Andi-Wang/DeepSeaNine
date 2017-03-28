@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: 4121d13038b3e284eb06233cefa9d337
-timeCreated: 1490221051
+timeCreated: 1490657088
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pew: {fileID: 8300000, guid: 488fd340dac36b54ea3e87dbcd9346c7, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
