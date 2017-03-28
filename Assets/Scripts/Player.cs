@@ -52,6 +52,7 @@ namespace UnityStandardAssets._2D {
             towerPanel = GameObject.Find("Canvas" + playerNumber).transform.FindChild("TowerPanel" + playerNumber).GetComponent<TowerPanel>();
             towerPanel.gameObject.SetActive(false);
 			restrictedTileTypes = new string[]{ "water" };
+            LevelManager.Instance.cameraMovement.addPlayer(this.gameObject);
         }
 
         // Update is called once per frame

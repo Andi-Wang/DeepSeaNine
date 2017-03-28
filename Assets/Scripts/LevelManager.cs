@@ -11,7 +11,7 @@ public class LevelManager : Singleton<LevelManager> {
 	private GameObject[] tilePrefabs;
 
     [SerializeField]
-    private CameraMovement cameraMovement;
+    public CameraMovement cameraMovement;
 
     [SerializeField]
     private Transform map;
@@ -120,8 +120,8 @@ public class LevelManager : Singleton<LevelManager> {
 
         maxTile = Tiles[new Point(MapX - 1, MapY - 1)].transform.position;
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
-        cameraMovement.addPlayer(GameObject.Find("player1(Clone)"));
-        cameraMovement.addPlayer(GameObject.Find("player2(Clone)"));
+        //cameraMovement.addPlayer(GameObject.Find("player1(Clone)"));
+        //cameraMovement.addPlayer(GameObject.Find("player2(Clone)"));
         miniMap.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize), TileSize/2);
 
 		createBoundaryCollisionBoxes ();

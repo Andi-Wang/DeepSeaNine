@@ -50,10 +50,12 @@ public class Pirate : Movable {
     public void damage(int d) {
         health -= d;
         if(health <= 0) {
-            foreach(Player player in PlayerManager.Instance.playerArray) {
-                player.Gold += 5;
-            }
             Destroy(gameObject);
+            foreach (Player player in PlayerManager.Instance.playerArray) {
+                if (player != null) {
+                    player.Gold += 5;
+                }
+            }
         }
     }
 
