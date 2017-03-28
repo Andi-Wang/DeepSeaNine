@@ -61,46 +61,59 @@ namespace UnityStandardAssets._2D {
         }
 
         private void Update() {
+            if (Time.timeScale == 1)
+            {
+                // Read button down inputs in Update so button presses aren't missed.
+                if (!input.interactDown)
+                {
+                    input.interactDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Interact");
+                }
+                if (!input.fireDown)
+                {
+                    input.fireDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Fire");
+                }
+                if (!input.buildUpgradeDown)
+                {
+                    input.buildUpgradeDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Build/Upgrade");
+                }
+                if (!input.buildUpgradeUp)
+                {
+                    input.buildUpgradeUp = CrossPlatformInputManager.GetButtonUp("Player" + player.playerNumber + "Build/Upgrade");
+                }
+                if (!input.sellDown)
+                {
+                    input.sellDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Sell");
+                }
+                if (!input.sellUp)
+                {
+                    input.sellUp = CrossPlatformInputManager.GetButtonUp("Player" + player.playerNumber + "Sell");
+                }
+                if (!input.cancelDown)
+                {
+                    input.cancelDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Cancel");
+                }
 
-            // Read button down inputs in Update so button presses aren't missed.
-            if (!input.interactDown) {
-                input.interactDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Interact");
-            }
-            if (!input.fireDown) {
-                input.fireDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Fire");
-            }
-            if (!input.buildUpgradeDown) {
-                input.buildUpgradeDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Build/Upgrade");
-            }
-            if (!input.buildUpgradeUp) {
-                input.buildUpgradeUp = CrossPlatformInputManager.GetButtonUp("Player" + player.playerNumber + "Build/Upgrade");
-            }
-            if (!input.sellDown) {
-                input.sellDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Sell");
-            }
-            if (!input.sellUp) {
-                input.sellUp = CrossPlatformInputManager.GetButtonUp("Player" + player.playerNumber + "Sell");
-            }
-            if (!input.cancelDown) {
-                input.cancelDown = CrossPlatformInputManager.GetButtonDown("Player" + player.playerNumber + "Cancel");
-            }
 
-
-            if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Vertical") > 0) {
-                input.lastDirection = Vector3.up;
-                input.upHold = true;
-            }
-            if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Vertical") < 0) {
-                input.lastDirection = Vector3.down;
-                input.downHold = true;
-            }
-            if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Horizontal") < 0) {
-                input.lastDirection = Vector3.left;
-                input.leftHold = true;
-            }
-            if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Horizontal") > 0) {
-                input.lastDirection = Vector3.right;
-                input.rightHold = true;
+                if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Vertical") > 0)
+                {
+                    input.lastDirection = Vector3.up;
+                    input.upHold = true;
+                }
+                if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Vertical") < 0)
+                {
+                    input.lastDirection = Vector3.down;
+                    input.downHold = true;
+                }
+                if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Horizontal") < 0)
+                {
+                    input.lastDirection = Vector3.left;
+                    input.leftHold = true;
+                }
+                if (CrossPlatformInputManager.GetAxis("Player" + player.playerNumber + "Horizontal") > 0)
+                {
+                    input.lastDirection = Vector3.right;
+                    input.rightHold = true;
+                }
             }
         }
 
